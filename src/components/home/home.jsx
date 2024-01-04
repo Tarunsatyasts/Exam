@@ -1,5 +1,7 @@
 import React from "react";
+import Student from "../../assets/images/student.png";
 export const Home = () => {
+  const Role_Id = localStorage.getItem("Id");
   return (
     <>
       <div className="content-body">
@@ -8,7 +10,7 @@ export const Home = () => {
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Add Menus</h5>
+                  <h5 className="modal-title">Add Students</h5>
                   <button type="button" className="close" data-dismiss="modal">
                     <span>×</span>
                   </button>
@@ -39,14 +41,31 @@ export const Home = () => {
           </div>
           <div className="row">
             <div className="col-xl-3 col-xxl-4 col-sm-6">
-              <div className="card grd-card">
-                <div className="card-body">
-                  <div className="media align-items-center">
-                    <div className="media-body mr-2">
-                      <h2 className="text-white font-w600">459</h2>
-                      <span className="text-white">Total Menus</span>
+              <div className="card studentCard">
+                <div className="d-flex align-items-end row">
+                  <div className="col-7">
+                    <div className="card-body text-nowrap">
+                      <h5 className="card-title mb-0">
+                        {Role_Id === "001" ? (
+                          <span>msantytech Admin 🎉</span>
+                        ) : (
+                          <span>Welcome Back 🎉</span>
+                        )}{" "}
+                        {/* 🎉 */}
+                      </h5>
+                      <p className="mb-2">Best seller of the month</p>
+
+                      <a
+                        href="javascript:;"
+                        className="btn btn-primary waves-effect waves-light">
+                        View Profile
+                      </a>
                     </div>
-                    <div className="d-inline-block position-relative donut-chart-sale"></div>
+                  </div>
+                  <div className="col-5 text-center text-sm-left">
+                    <div className="card-body pb-0 px-0 px-md-4">
+                      <img src={Student} height="140" alt="view sales" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -56,8 +75,8 @@ export const Home = () => {
                 <div className="card-body">
                   <div className="media align-items-center">
                     <div className="media-body mr-2">
-                      <h2 className="text-white font-w600">$ 87,561</h2>
-                      <span className="text-white">Total Revenue</span>
+                      <h2 className="text-white font-w600">561</h2>
+                      <span className="text-white">Total Students</span>
                     </div>
                     <div className="d-inline-block position-relative donut-chart-sale"></div>
                   </div>
@@ -70,7 +89,7 @@ export const Home = () => {
                   <div className="media align-items-center">
                     <div className="media-body mr-2">
                       <h2 className="text-white font-w600">247</h2>
-                      <span className="text-white">Total Oders</span>
+                      <span className="text-white">Total Lessons</span>
                     </div>
                     <div className="d-inline-block position-relative donut-chart-sale"></div>
                   </div>
@@ -83,7 +102,7 @@ export const Home = () => {
                   <div className="media align-items-center">
                     <div className="media-body mr-2">
                       <h2 className="text-white font-w600">872</h2>
-                      <span className="text-white">Total Customers</span>
+                      <span className="text-white">Total Questions</span>
                     </div>
                     <div className="d-inline-block position-relative donut-chart-sale"></div>
                   </div>
@@ -96,7 +115,7 @@ export const Home = () => {
                   <div className="media align-items-center">
                     <div className="media-body mr-2">
                       <h2 className="text-white font-w600">872</h2>
-                      <span className="text-white">Total Customers</span>
+                      <span className="text-white">Total Subjects</span>
                     </div>
                     <div className="d-inline-block position-relative donut-chart-sale"></div>
                   </div>
@@ -109,7 +128,7 @@ export const Home = () => {
                   <div className="media align-items-center">
                     <div className="media-body mr-2">
                       <h2 className="text-white font-w600">872</h2>
-                      <span className="text-white">Total Customers</span>
+                      <span className="text-white">Total Tasks</span>
                     </div>
                     <div className="d-inline-block position-relative donut-chart-sale"></div>
                   </div>
@@ -117,7 +136,7 @@ export const Home = () => {
               </div>
             </div>
 
-            <div className="col-xl-9 col-xxl-8">
+            {/* <div className="col-xl-9 col-xxl-8">
               <div className="row">
                 <div className="col-xl-12">
                   <div className="card">
@@ -370,7 +389,7 @@ export const Home = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

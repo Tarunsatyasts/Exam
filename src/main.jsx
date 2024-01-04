@@ -22,6 +22,8 @@ import { IndexQuestions } from "./components/Questions";
 import { Questions } from "./components/Questions/questions";
 import { IndexAnswers } from "./components/Answers";
 import { Answers } from "./components/Answers/answers";
+import { IndexStudentLessons } from "./components/StudentLessons";
+import { StudentLessons } from "./components/StudentLessons/studentlesson";
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
@@ -41,80 +43,122 @@ const PrivateRoute = ({ children }) => {
 
   return <>{children}</>;
 };
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/home",
-    element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "students",
-        element: <IndexStudents />,
-        children: [
-          {
-            index: true,
-            element: <Students />,
-          },
-        ],
-      },
-      {
-        path: "lessons",
-        element: <IndexLessons />,
-        children: [
-          {
-            index: true,
-            element: <Lessons />,
-          },
-        ],
-      },
-      {
-        path: "subjects",
-        element: <IndexSubjects />,
-        children: [
-          {
-            index: true,
-            element: <Subjects />,
-          },
-        ],
-      },
-      {
-        path: "questions",
-        element: <IndexQuestions />,
-        children: [
-          {
-            index: true,
-            element: <Questions />,
-          },
-        ],
-      },
-      {
-        path: "answers",
-        element: <IndexAnswers />,
-        children: [
-          {
-            index: true,
-            element: <Answers />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+const token = localStorage.getItem("Id");
+let paths;
+
+if (token === "001") {
+  paths = [
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
+      path: "/home",
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "students",
+          element: <IndexStudents />,
+          children: [
+            {
+              index: true,
+              element: <Students />,
+            },
+          ],
+        },
+        {
+          path: "lessons",
+          element: <IndexLessons />,
+          children: [
+            {
+              index: true,
+              element: <Lessons />,
+            },
+          ],
+        },
+        {
+          path: "subjects",
+          element: <IndexSubjects />,
+          children: [
+            {
+              index: true,
+              element: <Subjects />,
+            },
+          ],
+        },
+        {
+          path: "questions",
+          element: <IndexQuestions />,
+          children: [
+            {
+              index: true,
+              element: <Questions />,
+            },
+          ],
+        },
+        {
+          path: "answers",
+          element: <IndexAnswers />,
+          children: [
+            {
+              index: true,
+              element: <Answers />,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+} else {
+  paths = [
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
+      path: "/home",
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "quiz",
+          element: <IndexStudentLessons />,
+          children: [
+            {
+              index: true,
+              element: <StudentLessons />,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+const router = createBrowserRouter(paths);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

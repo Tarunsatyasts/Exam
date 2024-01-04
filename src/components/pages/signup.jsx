@@ -25,7 +25,7 @@ const Signup = () => {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify([values]),
         });
 
         const result = await response.json();

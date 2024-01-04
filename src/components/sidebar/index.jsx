@@ -248,84 +248,91 @@ export const Sidebar = () => {
             </nav>
           </div>
         </div>
-
-        <div className="deznav">
-          <div className="MainLogo">
-            <img src={Logo} alt="" srcset="" />
-          </div>
-          <div className="deznav-scroll">
-            <ul className="metismenu" id="menu">
-              <li className={activeItems["dashboard"] ? "mm-active" : ""}>
-                <Link to={"/home"}>
-                  <i class="bx bx-server"></i>
-                  <span className="nav-text">Dashboard</span>
-                </Link>
-              </li>
-              <li
-                onClick={() => toggleActive("apps")}
-                className={activeItems["apps"] ? "mm-active" : ""}>
-                <Link to="" className="has-arrow ai-icon" aria-expanded="false">
-                  <i class="bx bx-group"></i>
-                  <span className="nav-text">Students</span>
-                </Link>
-                <ul
-                  className={`mm-collapse ${
-                    activeItems["apps"] ? "mm-show" : ""
-                  }`}>
-                  <li>
-                    <Link to={"students"}>Students</Link>
+        {Role_Id === "001" ? (
+          <>
+            <div className="deznav">
+              <div className="MainLogo">
+                <img src={Logo} alt="" srcset="" />
+              </div>
+              <div className="deznav-scroll">
+                <ul className="metismenu" id="menu">
+                  <li className={activeItems["dashboard"] ? "mm-active" : ""}>
+                    <Link to={"/home"}>
+                      <i class="bx bx-server"></i>
+                      <span className="nav-text">Dashboard</span>
+                    </Link>
                   </li>
-                </ul>
-              </li>
-              <li
-                onClick={() => toggleActive("charts")}
-                className={activeItems["charts"] ? "mm-active" : ""}>
-                <a href="#" className="has-arrow ai-icon" aria-expanded="false">
-                  <i class="bx bx-line-chart-down"></i>
-                  <span className="nav-text">Lessons</span>
-                </a>
-                <ul
-                  className={`mm-collapse ${
-                    activeItems["charts"] ? "mm-show" : ""
-                  }`}>
-                  <li>
-                    <Link to={"lessons"}>Lessons</Link>
+                  <li
+                    onClick={() => toggleActive("apps")}
+                    className={activeItems["apps"] ? "mm-active" : ""}>
+                    <Link
+                      to=""
+                      className="has-arrow ai-icon"
+                      aria-expanded="false">
+                      <i class="bx bx-group"></i>
+                      <span className="nav-text">Students</span>
+                    </Link>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["apps"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"students"}>Students</Link>
+                      </li>
+                    </ul>
                   </li>
-                </ul>
-              </li>
-              <li
-                onClick={() => toggleActive("boot")}
-                className={activeItems["boot"] ? "mm-active" : ""}>
-                <a className="has-arrow ai-icon" aria-expanded="false">
-                  <i class="bx bxl-tailwind-css"></i>
-                  <span className="nav-text">Subjects</span>
-                </a>
-                <ul
-                  className={`mm-collapse ${
-                    activeItems["boot"] ? "mm-show" : ""
-                  }`}>
-                  <li>
-                    <Link to={"subjects"}>Subjects</Link>
+                  <li
+                    onClick={() => toggleActive("charts")}
+                    className={activeItems["charts"] ? "mm-active" : ""}>
+                    <a
+                      href="#"
+                      className="has-arrow ai-icon"
+                      aria-expanded="false">
+                      <i class="bx bx-line-chart-down"></i>
+                      <span className="nav-text">Lessons</span>
+                    </a>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["charts"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"lessons"}>Lessons</Link>
+                      </li>
+                    </ul>
                   </li>
-                </ul>
-              </li>
-              <li
-                onClick={() => toggleActive("plug")}
-                className={activeItems["plug"] ? "mm-active" : ""}>
-                <a className="has-arrow ai-icon" aria-expanded="false">
-                  <i class="bx bx-terminal"></i>
-                  <span className="nav-text">Questions</span>
-                </a>
-                <ul
-                  className={`mm-collapse ${
-                    activeItems["plug"] ? "mm-show" : ""
-                  }`}>
-                  <li>
-                    <Link to={"questions"}>Questions</Link>
+                  <li
+                    onClick={() => toggleActive("boot")}
+                    className={activeItems["boot"] ? "mm-active" : ""}>
+                    <a className="has-arrow ai-icon" aria-expanded="false">
+                      <i class="bx bxl-tailwind-css"></i>
+                      <span className="nav-text">Subjects</span>
+                    </a>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["boot"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"subjects"}>Subjects</Link>
+                      </li>
+                    </ul>
                   </li>
-                </ul>
-              </li>
-              {/* <li>
+                  <li
+                    onClick={() => toggleActive("plug")}
+                    className={activeItems["plug"] ? "mm-active" : ""}>
+                    <a className="has-arrow ai-icon" aria-expanded="false">
+                      <i class="bx bx-terminal"></i>
+                      <span className="nav-text">Questions</span>
+                    </a>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["plug"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"questions"}>Questions</Link>
+                      </li>
+                    </ul>
+                  </li>
+                  {/* <li>
                 <a
                   href="widget-basic.html"
                   className="ai-icon"
@@ -334,23 +341,23 @@ export const Sidebar = () => {
                   <span className="nav-text">Answers</span>
                 </a>
               </li> */}
-              <li
-                onClick={() => toggleActive("form")}
-                className={activeItems["form"] ? "mm-active" : ""}>
-                <a className="has-arrow ai-icon" aria-expanded="false">
-                  <i class="bx bx-copy-alt"></i>
-                  <span className="nav-text">Answers</span>
-                </a>
-                <ul
-                  className={`mm-collapse ${
-                    activeItems["form"] ? "mm-show" : ""
-                  }`}>
-                  <li>
-                    <Link to={"answers"}>Answers</Link>
+                  <li
+                    onClick={() => toggleActive("form")}
+                    className={activeItems["form"] ? "mm-active" : ""}>
+                    <a className="has-arrow ai-icon" aria-expanded="false">
+                      <i class="bx bx-copy-alt"></i>
+                      <span className="nav-text">Answers</span>
+                    </a>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["form"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"answers"}>Answers</Link>
+                      </li>
+                    </ul>
                   </li>
-                </ul>
-              </li>
-              <li
+                  {/* <li
                 onClick={() => toggleActive("table")}
                 className={activeItems["table"] ? "mm-active" : ""}>
                 <a className="has-arrow ai-icon" aria-expanded="false">
@@ -415,10 +422,36 @@ export const Sidebar = () => {
                     <a href="page-lock-screen.html">Lock Screen</a>
                   </li>
                 </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
+              </li> */}
+                </ul>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="deznav">
+              <div className="MainLogo">
+                <img src={Logo} alt="" srcset="" />
+              </div>
+              <div className="deznav-scroll">
+                <ul className="metismenu" id="menu">
+                  <li className={activeItems["dashboard"] ? "mm-active" : ""}>
+                    <Link to={"/home"}>
+                      <i class="bx bx-server"></i>
+                      <span className="nav-text">Dashboard</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"quiz"} className="ai-icon" aria-expanded="false">
+                      <i class="bx bxs-widget"></i>
+                      <span className="nav-text">Lesson 1</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

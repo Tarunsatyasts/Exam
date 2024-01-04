@@ -11,6 +11,32 @@ export const Answers = () => {
   const [data, setData] = useState();
   const [lessondata, setLessonData] = useState();
   const [questiondata, setQuestionData] = useState();
+  const [numberOfOptions, setNumberOfOptions] = useState(0);
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setNumberOfOptions(value);
+  };
+
+  const generateOptionFields = () => {
+    const optionFields = [];
+    for (let i = 0; i < numberOfOptions; i++) {
+      optionFields.push(
+        <div key={i} className="col-lg-12 mt-2 mb-2">
+          <label className="inputFieldLabel">Option {i + 1}</label>
+          <input
+            type="text"
+            name={`OPTION_NAME_${i}`}
+            id={`OPTION_NAME_${i}`}
+            className="inputField"
+            onChange={formik.handleChange}
+            value={formik.values[`OPTION_NAME_${i}`] || ""}
+          />
+        </div>
+      );
+    }
+    return optionFields;
+  };
+
   const columns = [
     {
       name: "Question ID",
@@ -23,12 +49,20 @@ export const Answers = () => {
       sortable: true,
     },
     {
-      name: "Subject Name",
-      selector: "Subject_Name",
+      name: "Answer Type",
+      selector: "ANSWER_TYPE",
+    },
+    {
+      name: "Selected Answer Id",
+      selector: "ANSWER_ID",
+    },
+    {
+      name: "Option",
+      selector: "OPTION_NAME",
     },
     {
       name: "Lesson Name",
-      selector: "Lession_Name",
+      selector: "Lession_name",
     },
 
     {
@@ -43,19 +77,30 @@ export const Answers = () => {
               Edit
             </button>
           </div>
-
-          <div className="d-flex justify-content-end ">
-            <button
-              className="Submitbutton mt-0 Notapproved"
-              type="submit"
-              onClick={() => handleApprove(row)}>
-              Delete
-            </button>
-          </div>
         </div>
       ),
     },
   ];
+
+  const answersList = () => {
+    const storedToken = localStorage.getItem("access_token");
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${storedToken}`,
+    };
+
+    fetch(API_URL + "Answer/GetOptions", {
+      headers: headers,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching student details:", error);
+      });
+  };
   const refreshList = () => {
     const storedToken = localStorage.getItem("access_token");
     const headers = {
@@ -96,6 +141,7 @@ export const Answers = () => {
   };
 
   useEffect(() => {
+    answersList();
     refreshList();
     lessonList();
   }, []);
@@ -106,25 +152,43 @@ export const Answers = () => {
       Lession_ID: "",
       Lession_name: "",
       ANSWER_ID: "",
-      ANSWER_TYPE: "",
+      ANSWER_TYPE: "radio",
       OPTION_ID: "",
       OPTION_NAME: "",
       VIDEO_LINK: "",
-      Status: "",
-      CreatedBy: "",
+      STATUS: "",
+      SEQNO: "",
+      EDITED_BY: "",
+      CREATED_BY: "",
     },
 
     onSubmit: async (values) => {
       const storedToken = localStorage.getItem("access_token");
+
+      // Remove OPTION_NAME_x fields from values
+      const cleanValues = { ...values };
+      for (let i = 0; i < numberOfOptions; i++) {
+        delete cleanValues[`OPTION_NAME_${i}`];
+      }
+
+      const optionData = [];
+      for (let i = 1; i <= numberOfOptions; i++) {
+        optionData.push({
+          ...cleanValues,
+          OPTION_ID: i.toString(),
+          OPTION_NAME: values[`OPTION_NAME_${i - 1}`] || "",
+        });
+      }
+
       try {
-        const response = await fetch(API_URL + "Question/SaveQuestion", {
+        const response = await fetch(API_URL + "Answer/SaveOptions", {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${storedToken}`,
           },
-          body: JSON.stringify([values]),
+          body: JSON.stringify(optionData),
         });
 
         const result = await response.json();
@@ -133,7 +197,6 @@ export const Answers = () => {
           alert("Created Successfully");
         } else {
           alert("Failed: " + result.message);
-          console.log("sjfhsgfhg", values);
           console.error("Create failed:", result.message);
         }
       } catch (error) {
@@ -142,6 +205,7 @@ export const Answers = () => {
       }
     },
   });
+
   const tableData = {
     columns,
     data,
@@ -177,25 +241,25 @@ export const Answers = () => {
                       <label className="inputFieldLabel">Select Question</label>
                       <select
                         className="inputField"
-                        name="Subject_ID"
+                        name="Question_ID"
                         onChange={(e) => {
                           formik.handleChange(e);
                           const selectedQuestion = questiondata.find(
                             (question) =>
-                              question.QUESTION_ID === e.target.value
+                              question.Question_ID === e.target.value
                           );
                           formik.setFieldValue(
                             "Question_name",
                             selectedQuestion?.Question_name || ""
                           );
                         }}
-                        value={formik.values.QUESTION_ID}>
+                        value={formik.values.Question_ID}>
                         <option value="">Select Question</option>
                         {questiondata &&
                           questiondata.map((question) => (
                             <option
-                              key={question.QUESTION_ID}
-                              value={question.QUESTION_ID}>
+                              key={question.Question_ID}
+                              value={question.Question_ID}>
                               {question.Question_name}
                             </option>
                           ))}
@@ -212,8 +276,8 @@ export const Answers = () => {
                             (lesson) => lesson.Lession_ID === e.target.value
                           );
                           formik.setFieldValue(
-                            "Lession_Name",
-                            selectedLesson?.Lession_Name || ""
+                            "Lession_name",
+                            selectedLesson?.Lession_name || ""
                           );
                         }}
                         value={formik.values.Lession_ID}>
@@ -246,24 +310,29 @@ export const Answers = () => {
                         Enter Option's for Question
                       </label>
                       <input
-                        type="text"
-                        name="Question_name"
-                        id="Question_name"
+                        type="number"
+                        name="numberOfOptions"
+                        id="numberOfOptions"
                         className="inputField"
-                        onChange={formik.handleChange}
-                        value={formik.values.Question_name}
+                        onChange={handleInputChange}
+                        value={numberOfOptions}
                       />
                     </div>
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Enter Answer</label>
+                      <label className="inputFieldLabel">
+                        Enter Answer Option
+                      </label>
                       <input
                         type="text"
-                        name="Question_name"
-                        id="Question_name"
+                        name="ANSWER_ID"
+                        id="ANSWER_ID"
                         className="inputField"
                         onChange={formik.handleChange}
-                        value={formik.values.Question_name}
+                        value={formik.values.ANSWER_ID}
                       />
+                    </div>
+                    <div className="col-lg-6 mt-2 mb-2">
+                      {generateOptionFields()}
                     </div>
                   </div>
                   <div className="col-lg-12">

@@ -66,7 +66,7 @@ const Login = () => {
       <div className="authincation h-100">
         <div className="container h-100">
           <div className="row justify-content-center align-items-center height-100vh">
-            <div className="col-md-5">
+            <div className="col-md-4">
               <div className="authincation-content">
                 <div className="row no-gutters">
                   <div className="col-xl-12">
@@ -82,7 +82,7 @@ const Login = () => {
                       <form onSubmit={formik.handleSubmit}>
                         <div className="form-group">
                           <label className="mb-1 text-black">
-                            <strong>Email</strong>
+                            <strong>User Id</strong>
                           </label>
                           <input
                             type="text"

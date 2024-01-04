@@ -43,15 +43,6 @@ export const Questions = () => {
               Edit
             </button>
           </div>
-
-          <div className="d-flex justify-content-end ">
-            <button
-              className="Submitbutton mt-0 Notapproved"
-              type="submit"
-              onClick={() => handleApprove(row)}>
-              Delete
-            </button>
-          </div>
         </div>
       ),
     },
