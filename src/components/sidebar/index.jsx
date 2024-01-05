@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
-
+const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 export const Sidebar = () => {
   const Role_Id = localStorage.getItem("Id");
   const [activeItems, setActiveItems] = useState({});
@@ -25,6 +25,38 @@ export const Sidebar = () => {
 
     navigate("/");
   };
+  const refreshList = async () => {
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const SubjectId = localStorage.getItem("SubjectID");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      const response = await fetch(
+        `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${SubjectId}`,
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
+      } else {
+        console.error("Error fetching student details:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+    }
+  };
+  useEffect(() => {
+    refreshList();
+  }, []);
+
   return (
     <>
       {/* id="main-wrapper" */}
@@ -203,7 +235,7 @@ export const Sidebar = () => {
                       className={`dropdown-menu dropdown-menu-right${
                         isHovered ? " show" : ""
                       }`}>
-                      <Link to={"/"} className="dropdown-item ai-icon">
+                      <Link to={"profile"} className="dropdown-item ai-icon">
                         <svg
                           id="icon-user1"
                           xmlns="http://www.w3.org/2000/svg"
@@ -281,6 +313,7 @@ export const Sidebar = () => {
                       </li>
                     </ul>
                   </li>
+
                   <li
                     onClick={() => toggleActive("charts")}
                     className={activeItems["charts"] ? "mm-active" : ""}>
@@ -356,6 +389,15 @@ export const Sidebar = () => {
                         <Link to={"answers"}>Answers</Link>
                       </li>
                     </ul>
+                  </li>
+                  <li>
+                    <Link
+                      to={"access"}
+                      className="ai-icon"
+                      aria-expanded="false">
+                      <i class="bx bxs-widget"></i>
+                      <span className="nav-text">Student Access</span>
+                    </Link>
                   </li>
                   {/* <li
                 onClick={() => toggleActive("table")}

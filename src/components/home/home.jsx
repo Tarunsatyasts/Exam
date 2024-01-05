@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Student from "../../assets/images/student.png";
 export const Home = () => {
   const Role_Id = localStorage.getItem("Id");
+  const [data, setData] = useState();
+  const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+  const refreshList = async () => {
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const StudentId = localStorage.getItem("User");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      const response = await fetch(
+        `${API_URL}Student/GetSubjectbyStudent?StudentID=${StudentId}`,
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
+      } else {
+        console.error("Error fetching student details:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    refreshList();
+  }, []);
+  const handleSelectSubject = (selectedSubjectID) => {
+    localStorage.setItem("SubjectID", selectedSubjectID);
+  };
   return (
     <>
       <div className="content-body">
@@ -390,6 +427,30 @@ export const Home = () => {
                 </div>
               </div>
             </div> */}
+          </div>
+          <div className="row">
+            {data &&
+              data.map((subject, index) => (
+                <>
+                  <div className="col-lg-3">
+                    <div class="modalsub" key={index}>
+                      <h1 class="modal__heading">
+                        Subject : {subject.SUbject_name}
+                      </h1>
+                      <p class="modal__text">
+                        Select the subject to view lessons and begin the task.
+                      </p>
+                      <div class="modal__buttons">
+                        <button
+                          className="modal__button modal__button--primary"
+                          onClick={() => handleSelectSubject(subject.SUBJECT)}>
+                          Select Subject
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ))}
           </div>
         </div>
       </div>

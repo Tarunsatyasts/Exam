@@ -24,6 +24,10 @@ import { IndexAnswers } from "./components/Answers";
 import { Answers } from "./components/Answers/answers";
 import { IndexStudentLessons } from "./components/StudentLessons";
 import { StudentLessons } from "./components/StudentLessons/studentlesson";
+import { IndexProfile } from "./components/profile";
+import { Profile } from "./components/profile/profile";
+import { IndexStudentAccess } from "./components/studentaccess";
+import { StudentAccess } from "./components/studentaccess/studentaccess";
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
@@ -75,6 +79,16 @@ if (token === "001") {
             {
               index: true,
               element: <Students />,
+            },
+          ],
+        },
+        {
+          path: "access",
+          element: <IndexStudentAccess />,
+          children: [
+            {
+              index: true,
+              element: <StudentAccess />,
             },
           ],
         },
@@ -150,6 +164,16 @@ if (token === "001") {
             {
               index: true,
               element: <StudentLessons />,
+            },
+          ],
+        },
+        {
+          path: "profile",
+          element: <IndexProfile />,
+          children: [
+            {
+              index: true,
+              element: <Profile />,
             },
           ],
         },

@@ -40,7 +40,7 @@ export const Answers = () => {
   const columns = [
     {
       name: "Question ID",
-      selector: "Question_ID",
+      selector: "QUESTION_ID",
       sortable: true,
     },
     {
@@ -101,25 +101,25 @@ export const Answers = () => {
         console.error("Error fetching student details:", error);
       });
   };
-  const refreshList = () => {
-    const storedToken = localStorage.getItem("access_token");
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${storedToken}`,
-    };
+  // const refreshList = () => {
+  //   const storedToken = localStorage.getItem("access_token");
+  //   const headers = {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${storedToken}`,
+  //   };
 
-    fetch(API_URL + "Question/GetQuestionMaster", {
-      headers: headers,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setQuestionData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching student details:", error);
-      });
-  };
+  //   fetch(API_URL + "Question/GetQuestionMaster", {
+  //     headers: headers,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setQuestionData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching student details:", error);
+  //     });
+  // };
   const lessonList = () => {
     const storedToken = localStorage.getItem("access_token");
     const headers = {
@@ -142,7 +142,7 @@ export const Answers = () => {
 
   useEffect(() => {
     answersList();
-    refreshList();
+    // refreshList();
     lessonList();
   }, []);
   const formik = useFormik({
@@ -211,6 +211,46 @@ export const Answers = () => {
     data,
   };
 
+  // Lesson onchange
+  const handleLessonChange = async (e) => {
+    formik.handleChange(e);
+    const selectedLessonID = e.target.value;
+
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      const response = await fetch(
+        `${API_URL}Question/GetQuestionMasterByLession?Lession_ID=${selectedLessonID}`,
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setQuestionData(data);
+
+        // Set Lession_name in formik state
+        const selectedLesson = lessondata.find(
+          (lesson) => lesson.Lession_ID === selectedLessonID
+        );
+        formik.setFieldValue(
+          "Lession_name",
+          selectedLesson?.Lession_name || ""
+        );
+      } else {
+        console.error("Failed to fetch questions:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching questions:", error.message);
+    }
+  };
+
   return (
     <>
       <div className="content-body">
@@ -237,6 +277,47 @@ export const Answers = () => {
               <div className="col-lg-6 bgModal">
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
+                    <div className="col-lg-6 mt-2 mb-2">
+                      <label className="inputFieldLabel">Select Lesson</label>
+                      <select
+                        className="inputField"
+                        name="Lession_ID"
+                        onChange={handleLessonChange}
+                        // onChange={(e) => {
+                        //   formik.handleChange(e);
+                        //   const selectedLesson = lessondata.find(
+                        //     (lesson) => lesson.Lession_ID === e.target.value
+                        //   );
+                        //   formik.setFieldValue(
+                        //     "Lession_name",
+                        //     selectedLesson?.Lession_name || ""
+                        //   );
+                        // }}
+                        value={formik.values.Lession_ID}>
+                        <option value="">Select Lesson</option>
+                        {lessondata &&
+                          lessondata.map((lesson) => (
+                            <option
+                              key={lesson.Lession_ID}
+                              value={lesson.Lession_ID}>
+                              {lesson.Lession_name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                    <div className="col-lg-6 mt-2 mb-2">
+                      <label className="inputFieldLabel"> Select Type</label>
+                      <select
+                        className="inputField"
+                        name="ANSWER_TYPE"
+                        disabled
+                        onChange={formik.handleChange}
+                        value={formik.values.ANSWER_TYPE}>
+                        <option value="radio" selected>
+                          radio
+                        </option>
+                      </select>
+                    </div>
                     <div className="col-lg-12">
                       <label className="inputFieldLabel">Select Question</label>
                       <select
@@ -263,46 +344,6 @@ export const Answers = () => {
                               {question.Question_name}
                             </option>
                           ))}
-                      </select>
-                    </div>
-                    <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Lesson</label>
-                      <select
-                        className="inputField"
-                        name="Lession_ID"
-                        onChange={(e) => {
-                          formik.handleChange(e);
-                          const selectedLesson = lessondata.find(
-                            (lesson) => lesson.Lession_ID === e.target.value
-                          );
-                          formik.setFieldValue(
-                            "Lession_name",
-                            selectedLesson?.Lession_name || ""
-                          );
-                        }}
-                        value={formik.values.Lession_ID}>
-                        <option value="">Select Lesson</option>
-                        {lessondata &&
-                          lessondata.map((lesson) => (
-                            <option
-                              key={lesson.Lession_ID}
-                              value={lesson.Lession_ID}>
-                              {lesson.Lession_name}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-                    <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel"> Select Type</label>
-                      <select
-                        className="inputField"
-                        name="ANSWER_TYPE"
-                        disabled
-                        onChange={formik.handleChange}
-                        value={formik.values.ANSWER_TYPE}>
-                        <option value="radio" selected>
-                          radio
-                        </option>
                       </select>
                     </div>
                     <div className="col-lg-6 mt-2 mb-2">

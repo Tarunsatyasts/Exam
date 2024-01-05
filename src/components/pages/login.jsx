@@ -49,6 +49,7 @@ const Login = () => {
             navigate("/home");
 
             localStorage.setItem("Id", secondApiResult.Role_ID);
+            localStorage.setItem("User", secondApiResult.UserID);
           } else {
             alert("Second API Failed: " + secondApiResult.message);
           }
