@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Student from "../../assets/images/student.png";
+import { useId } from "./IdContext";
 export const Home = () => {
+  const { setId } = useId();
+
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
   const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
@@ -37,7 +41,7 @@ export const Home = () => {
     refreshList();
   }, []);
   const handleSelectSubject = (selectedSubjectID) => {
-    localStorage.setItem("SubjectID", selectedSubjectID);
+    setId(selectedSubjectID);
   };
   return (
     <>

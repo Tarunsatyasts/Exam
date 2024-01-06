@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useId } from "../home/IdContext";
 import Logo from "../../assets/images/Logo.png";
 const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 export const Sidebar = () => {
+  const { id } = useId();
+
   const Role_Id = localStorage.getItem("Id");
+  const [data, setData] = useState();
   const [activeItems, setActiveItems] = useState({});
   const [isHovered, setIsHovered] = useState(false);
 
@@ -28,7 +32,6 @@ export const Sidebar = () => {
   const refreshList = async () => {
     try {
       const storedToken = localStorage.getItem("access_token");
-      const SubjectId = localStorage.getItem("SubjectID");
       const headers = {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -36,7 +39,7 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${SubjectId}`,
+        `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${id}`,
         {
           headers: headers,
         }
@@ -53,9 +56,10 @@ export const Sidebar = () => {
       console.error("Error fetching student details:", error.message);
     }
   };
+
   useEffect(() => {
     refreshList();
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -483,12 +487,22 @@ export const Sidebar = () => {
                       <span className="nav-text">Dashboard</span>
                     </Link>
                   </li>
-                  <li>
-                    <Link to={"quiz"} className="ai-icon" aria-expanded="false">
-                      <i class="bx bxs-widget"></i>
-                      <span className="nav-text">Lesson 1</span>
-                    </Link>
-                  </li>
+                  {data &&
+                    data.map((lesson, index) => (
+                      <>
+                        <li>
+                          <Link
+                            to={"quiz"}
+                            className="ai-icon"
+                            aria-expanded="false">
+                            <i class="bx bxs-widget"></i>
+                            <span className="nav-text">
+                              {lesson.Lession_name}
+                            </span>
+                          </Link>
+                        </li>
+                      </>
+                    ))}
                 </ul>
               </div>
             </div>

@@ -14,7 +14,8 @@ const Signup = () => {
       SUbject_name: "",
       SECURITY_QUESTION: "",
       SECURITY_ANSWER: "",
-      Status: "",
+      Status: "A",
+      Login_Status: "Approved",
       Created_By: "",
     },
     onSubmit: async (values) => {
@@ -100,11 +101,11 @@ const Signup = () => {
                               </label>
                               <input
                                 type="email"
-                                name="EMAIL"
+                                name="MAIL"
                                 className="form-control loginForm"
                                 defaultValue=""
                                 onChange={formik.handleChange}
-                                value={formik.values.EMAIL}
+                                value={formik.values.MAIL}
                               />
                             </div>
                           </div>

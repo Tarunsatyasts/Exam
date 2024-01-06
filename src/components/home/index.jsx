@@ -1,24 +1,23 @@
 import React, { useEffect, useContext } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar";
+import { IdProvider } from "./IdContext";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate("/");
-  //   }
-  // }, [token, navigate]);
+
   return (
     <>
-      <div className="">
-        <div className="MainSidebar">
-          <Sidebar />
+      <IdProvider>
+        <div className="">
+          <div className="MainSidebar">
+            <Sidebar />
+          </div>
+          <div>
+            <Outlet />
+          </div>
         </div>
-        <div>
-          <Outlet />
-        </div>
-      </div>
+      </IdProvider>
     </>
   );
 };
