@@ -152,7 +152,9 @@ export const StudentAccess = () => {
                       </select>
                     </div>
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Subject</label>
+                      <label className="inputFieldLabel">
+                        Select Technology
+                      </label>
                       <Select
                         className=""
                         name="Subjects"

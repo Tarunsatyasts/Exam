@@ -23,11 +23,11 @@ export const Questions = () => {
       sortable: true,
     },
     {
-      name: "Subject Name",
+      name: "Technology Name",
       selector: "Subject_Name",
     },
     {
-      name: "Lesson Name",
+      name: "Task Name",
       selector: "Lession_Name",
     },
 
@@ -192,7 +192,9 @@ export const Questions = () => {
                       />
                     </div>
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Subject</label>
+                      <label className="inputFieldLabel">
+                        Select Technology
+                      </label>
                       <select
                         className="inputField"
                         name="Subject_ID"
@@ -207,7 +209,7 @@ export const Questions = () => {
                           );
                         }}
                         value={formik.values.Subject_ID}>
-                        <option value="">Select Subject</option>
+                        <option value="">Select technology</option>
                         {subjectdata &&
                           subjectdata.map((subject) => (
                             <option
@@ -219,7 +221,7 @@ export const Questions = () => {
                       </select>
                     </div>
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Lesson</label>
+                      <label className="inputFieldLabel">Select Task</label>
                       <select
                         className="inputField"
                         name="Lession_ID"
@@ -234,7 +236,7 @@ export const Questions = () => {
                           );
                         }}
                         value={formik.values.Lession_ID}>
-                        <option value="">Select Lesson</option>
+                        <option value="">Select task</option>
                         {lessondata &&
                           lessondata.map((lesson) => (
                             <option

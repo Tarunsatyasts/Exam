@@ -26,7 +26,7 @@ export const Sidebar = () => {
   };
   const logout = () => {
     localStorage.removeItem("access_token");
-
+    sessionStorage.removeItem("id", JSON.stringify(id));
     navigate("/");
   };
   const refreshList = async () => {
@@ -306,14 +306,14 @@ export const Sidebar = () => {
                       className="has-arrow ai-icon"
                       aria-expanded="false">
                       <i class="bx bx-group"></i>
-                      <span className="nav-text">Students</span>
+                      <span className="nav-text">Employee</span>
                     </Link>
                     <ul
                       className={`mm-collapse ${
                         activeItems["apps"] ? "mm-show" : ""
                       }`}>
                       <li>
-                        <Link to={"students"}>Students</Link>
+                        <Link to={"employee"}>Employee</Link>
                       </li>
                     </ul>
                   </li>
@@ -326,14 +326,14 @@ export const Sidebar = () => {
                       className="has-arrow ai-icon"
                       aria-expanded="false">
                       <i class="bx bx-line-chart-down"></i>
-                      <span className="nav-text">Lessons</span>
+                      <span className="nav-text">Tasks</span>
                     </a>
                     <ul
                       className={`mm-collapse ${
                         activeItems["charts"] ? "mm-show" : ""
                       }`}>
                       <li>
-                        <Link to={"lessons"}>Lessons</Link>
+                        <Link to={"tasks"}>Tasks</Link>
                       </li>
                     </ul>
                   </li>
@@ -342,14 +342,14 @@ export const Sidebar = () => {
                     className={activeItems["boot"] ? "mm-active" : ""}>
                     <a className="has-arrow ai-icon" aria-expanded="false">
                       <i class="bx bxl-tailwind-css"></i>
-                      <span className="nav-text">Subjects</span>
+                      <span className="nav-text">Technology</span>
                     </a>
                     <ul
                       className={`mm-collapse ${
                         activeItems["boot"] ? "mm-show" : ""
                       }`}>
                       <li>
-                        <Link to={"subjects"}>Subjects</Link>
+                        <Link to={"technology"}>Technology</Link>
                       </li>
                     </ul>
                   </li>

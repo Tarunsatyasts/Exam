@@ -61,7 +61,7 @@ export const Answers = () => {
       selector: "OPTION_NAME",
     },
     {
-      name: "Lesson Name",
+      name: "Task Name",
       selector: "Lession_name",
     },
 
@@ -278,7 +278,7 @@ export const Answers = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Lesson</label>
+                      <label className="inputFieldLabel">Select Task</label>
                       <select
                         className="inputField"
                         name="Lession_ID"

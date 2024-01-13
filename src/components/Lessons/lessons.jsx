@@ -97,17 +97,17 @@ export const Lessons = () => {
   });
   const columns = [
     {
-      name: "Lesson ID",
+      name: "Task ID",
       selector: "Lession_ID",
       sortable: true,
     },
     {
-      name: "Lesson Name",
+      name: "Task Name",
       selector: "Lession_name",
       sortable: true,
     },
     {
-      name: "Subject Name",
+      name: "Technology Name",
       selector: "Subject_Name",
       sortable: true,
     },
@@ -147,7 +147,7 @@ export const Lessons = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Add Lessons</Link>
+                <Link to={"students"}>Add Tasks</Link>
               </li>
             </ol>
           </div>
@@ -164,7 +164,7 @@ export const Lessons = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
                     <div className="col-lg-6">
-                      <label className="inputFieldLabel">Lesson Name</label>
+                      <label className="inputFieldLabel">Task Name</label>
                       <input
                         type="text"
                         name="Lession_name"
@@ -175,7 +175,9 @@ export const Lessons = () => {
                       />
                     </div>
                     <div className="col-lg-6">
-                      <label className="inputFieldLabel">Select Subject</label>
+                      <label className="inputFieldLabel">
+                        Select Technology
+                      </label>
                       <select
                         className="inputField"
                         name="Subject_ID"
@@ -190,7 +192,7 @@ export const Lessons = () => {
                           );
                         }}
                         value={formik.values.Subject_ID}>
-                        <option value="">Select Subject</option>
+                        <option value="">Select technology</option>
                         {subjdata &&
                           subjdata.map((subject) => (
                             <option

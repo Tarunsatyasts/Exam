@@ -73,7 +73,7 @@ if (token === "001") {
           element: <Home />,
         },
         {
-          path: "students",
+          path: "employee",
           element: <IndexStudents />,
           children: [
             {
@@ -93,7 +93,7 @@ if (token === "001") {
           ],
         },
         {
-          path: "lessons",
+          path: "tasks",
           element: <IndexLessons />,
           children: [
             {
@@ -103,7 +103,7 @@ if (token === "001") {
           ],
         },
         {
-          path: "subjects",
+          path: "technology",
           element: <IndexSubjects />,
           children: [
             {

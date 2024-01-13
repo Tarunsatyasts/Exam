@@ -10,12 +10,12 @@ const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 export const Students = () => {
   const columns = [
     {
-      name: "Student Id",
+      name: "Employee Id",
       selector: "STUDENT_ID",
       sortable: true,
     },
     {
-      name: "Student Name",
+      name: "Employee Name",
       selector: "NAME",
       sortable: true,
     },
@@ -172,7 +172,7 @@ export const Students = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Student Details</Link>
+                <Link to={"students"}>Employee Details</Link>
               </li>
             </ol>
           </div>

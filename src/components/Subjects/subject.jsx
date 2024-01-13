@@ -10,12 +10,12 @@ const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 export const Subjects = () => {
   const columns = [
     {
-      name: "Subject Id",
+      name: "Technology Id",
       selector: "Subject_ID",
       sortable: true,
     },
     {
-      name: "Subject Name",
+      name: "Technology Name",
       selector: "Subject_Name",
       sortable: true,
     },
@@ -113,7 +113,7 @@ export const Subjects = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Add Subject</Link>
+                <Link to={"students"}>Add Technology</Link>
               </li>
             </ol>
           </div>
@@ -130,13 +130,13 @@ export const Subjects = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
                     <div className="col-lg-12">
-                      <label className="inputFieldLabel">Subject Name</label>
+                      <label className="inputFieldLabel">Technology Name</label>
                       <input
                         type="text"
                         name="Subject_Name"
                         id="Subject_Name"
                         className="inputField"
-                        placeholder="Subject Name"
+                        placeholder="technology"
                         onChange={formik.handleChange}
                         value={formik.values.Subject_Name}
                       />
