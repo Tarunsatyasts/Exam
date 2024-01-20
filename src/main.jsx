@@ -32,6 +32,7 @@ const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const token = localStorage.getItem("access_token");
     if (!token) {
       // Redirect to login if token is not present
@@ -47,10 +48,11 @@ const PrivateRoute = ({ children }) => {
 
   return <>{children}</>;
 };
-const token = localStorage.getItem("Id");
+
+const tokenId = localStorage.getItem("Id");
 let paths;
 
-if (token === "001") {
+if (tokenId === "001") {
   paths = [
     {
       path: "/",
@@ -132,6 +134,16 @@ if (token === "001") {
             },
           ],
         },
+        {
+          path: "profile",
+          element: <IndexProfile />,
+          children: [
+            {
+              index: true,
+              element: <Profile />,
+            },
+          ],
+        },
       ],
     },
   ];
@@ -158,7 +170,7 @@ if (token === "001") {
           element: <Home />,
         },
         {
-          path: "quiz",
+          path: "quiz/:Id",
           element: <IndexStudentLessons />,
           children: [
             {

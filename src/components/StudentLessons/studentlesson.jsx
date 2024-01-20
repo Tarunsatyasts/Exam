@@ -5,55 +5,49 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useParams } from 'react-router-dom';
+
 const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 
 export const StudentLessons = () => {
   const [data, setData] = useState();
   const [subjdata, setSubjData] = useState();
+  const { Id } = useParams();
 
-  const refreshList = () => {
-    const storedToken = localStorage.getItem("access_token");
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${storedToken}`,
-    };
+  const refreshList = async () => {
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const StudentId = localStorage.getItem("User");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
 
-    fetch(API_URL + "Subject/GetSubjectDetails", {
-      headers: headers,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setSubjData(data);
-        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
-      })
-      .catch((error) => {
-        console.error("Error fetching student details:", error);
-      });
-  };
-  const lessonList = () => {
-    const storedToken = localStorage.getItem("access_token");
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${storedToken}`,
-    };
+      const response = await fetch(
 
-    fetch(API_URL + "Lession/GetLessionDetails", {
-      headers: headers,
-    })
-      .then((response) => response.json())
-      .then((data) => {
+          `${API_URL}Question/GetVideoandquestionsByLession?Lession_ID=${Id}`,
+          {
+            headers: headers,
+          }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
         setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching student details:", error);
-      });
+        console.log("-=-=-=-=-=-=-==QUIZZZZZZZZZZZZZ-=-=-==-=", data);
+      } else {
+        console.error("Error fetching student details:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+    }
   };
+
 
   useEffect(() => {
     refreshList();
-    lessonList();
+
   }, []);
   const formik = useFormik({
     initialValues: {
@@ -137,29 +131,37 @@ export const StudentLessons = () => {
                 <h4 className="text-uppercase">Add Lesson Details</h4>
               </div>
             </div> */}
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="video-wrapper">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    onEnded={() => setIsPlaying(false)}>
-                    <source
-                      src="http://www.adrianparr.com/download/keyboard-video.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
-                  <button onClick={handlePlayPause} disabled={isPlaying}>
-                    {isPlaying ? "Pause" : "Play"}
-                  </button>
-                  <button onClick={handleBackward} disabled={isPlaying}>
-                    Backward
-                  </button>
-                </div>
-              </div>
-              <div className="col-lg-6"></div>
-            </div>
+            {data &&
+                data.map((task, index) => (
+                    <>
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <div className="video-wrapper">
+                            
+                            <video
+                                ref={videoRef}
+                                autoPlay
+                                muted
+                                controls
+                                onEnded={() => setIsPlaying(false)}>
+                              <source
+                                  src="http://www.adrianparr.com/download/keyboard-video.mp4"
+                                  type="video/mp4"
+                              />
+                            </video>
+                            {/*<button onClick={handlePlayPause} disabled={isPlaying}>*/}
+                            {/*  {isPlaying ? "Pause" : "Play"}*/}
+                            {/*</button>*/}
+                            {/*<button onClick={handleBackward} disabled={isPlaying}>*/}
+                            {/*  Backward*/}
+                            {/*</button>*/}
+                          </div>
+                        </div>
+                        <div className="col-lg-6"></div>
+                      </div>
+                    </>
+                ))}
+
           </div>
         </div>
       </div>

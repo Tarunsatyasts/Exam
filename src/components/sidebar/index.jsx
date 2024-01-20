@@ -8,6 +8,7 @@ export const Sidebar = () => {
 
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
+
   const [activeItems, setActiveItems] = useState({});
   const [isHovered, setIsHovered] = useState(false);
 
@@ -492,7 +493,7 @@ export const Sidebar = () => {
                       <>
                         <li>
                           <Link
-                            to={"quiz"}
+                            to={`quiz/${lesson.Lession_ID}`}
                             className="ai-icon"
                             aria-expanded="false">
                             <i class="bx bxs-widget"></i>

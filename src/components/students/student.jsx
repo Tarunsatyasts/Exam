@@ -48,7 +48,7 @@ export const Students = () => {
                 className="Submitbutton mt-0 Notapproved"
                 type="submit"
                 onClick={() => handleApprove(row)}>
-                Approved
+                Pending
               </button>
             </div>
           )}
