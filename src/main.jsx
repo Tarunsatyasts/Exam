@@ -28,6 +28,8 @@ import { IndexProfile } from "./components/profile";
 import { Profile } from "./components/profile/profile";
 import { IndexStudentAccess } from "./components/studentaccess";
 import { StudentAccess } from "./components/studentaccess/studentaccess";
+import {IndexReports} from "./components/reports/index.jsx";
+import {Reports} from "./components/reports/report.jsx";
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
@@ -131,6 +133,15 @@ if (tokenId === "001") {
             {
               index: true,
               element: <Answers />,
+            },
+          ],
+        },  {
+          path: "reports",
+          element: <IndexReports />,
+          children: [
+            {
+              index: true,
+              element: <Reports />,
             },
           ],
         },

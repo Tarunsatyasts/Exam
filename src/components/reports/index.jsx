@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-export const IndexSubjects = () => {
+export const IndexReports = () => {
     return (
         <>
             <Outlet />

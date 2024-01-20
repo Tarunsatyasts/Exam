@@ -25,11 +25,7 @@ export const Sidebar = () => {
       [itemId]: !prevActiveItems[itemId],
     }));
   };
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    sessionStorage.removeItem("id", JSON.stringify(id));
-    navigate("/");
-  };
+
   const refreshList = async () => {
     try {
       const storedToken = localStorage.getItem("access_token");
@@ -40,7 +36,42 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${id}`,
+          `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${id}`,
+          {
+            headers: headers,
+          }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
+      } else {
+        console.error("Error fetching student details:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+    }
+  };
+  const logout = () => {
+    Logoutreport();
+    localStorage.removeItem("access_token");
+    sessionStorage.removeItem("id", JSON.stringify(id));
+    navigate("/");
+  };
+
+  const Logoutreport = async () => {
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const userId = localStorage.getItem("User");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      const response = await fetch(
+        `${API_URL}Login/LogOut?UserID=${userId}`,
         {
           headers: headers,
         }
@@ -48,7 +79,7 @@ export const Sidebar = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setData(data);
+
         console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
       } else {
         console.error("Error fetching student details:", response.statusText);
@@ -402,6 +433,15 @@ export const Sidebar = () => {
                       aria-expanded="false">
                       <i class="bx bxs-widget"></i>
                       <span className="nav-text">Employee to Subject link</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={"reports"}
+                      className="ai-icon"
+                      aria-expanded="false">
+                      <i class="bx bxs-widget"></i>
+                      <span className="nav-text">Reports</span>
                     </Link>
                   </li>
                   {/* <li
