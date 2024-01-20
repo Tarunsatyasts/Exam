@@ -108,7 +108,7 @@ export const StudentAccess = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Student Details</Link>
+                <Link to={"students"}>Employee Details</Link>
               </li>
             </ol>
           </div>
@@ -116,7 +116,7 @@ export const StudentAccess = () => {
           <div id="page-container">
             <div className="row mb-4">
               <div className="col-12 mt-3 mb-1">
-                <h4 className="text-uppercase">Add Student Details</h4>
+                <h4 className="text-uppercase">Add Employee Details</h4>
               </div>
             </div>
             <div className="row">
@@ -125,7 +125,7 @@ export const StudentAccess = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
                     <div className="col-lg-6 mt-2 mb-2">
-                      <label className="inputFieldLabel">Select Student</label>
+                      <label className="inputFieldLabel">Select Employee</label>
                       <select
                         className="inputField"
                         name="STUDENT_ID"
@@ -140,7 +140,7 @@ export const StudentAccess = () => {
                           );
                         }}
                         value={formik.values.STUDENT_ID}>
-                        <option value="">Select Student</option>
+                        <option value="">Select Employee</option>
                         {data &&
                           data.map((subject) => (
                             <option

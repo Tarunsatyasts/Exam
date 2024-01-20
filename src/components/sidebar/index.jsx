@@ -401,7 +401,7 @@ export const Sidebar = () => {
                       className="ai-icon"
                       aria-expanded="false">
                       <i class="bx bxs-widget"></i>
-                      <span className="nav-text">Student Access</span>
+                      <span className="nav-text">Employee to Subject link</span>
                     </Link>
                   </li>
                   {/* <li
