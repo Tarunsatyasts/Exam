@@ -18,33 +18,36 @@ export const Reports = () => {
             name: "User Name",
             selector: "UserName",
             sortable: true,
-        },{
+        }, {
             name: "Login Date",
             selector: "LogInDate",
             sortable: true,
             cell: (row) => (
-                <span>{formatDate(row.LogInDate)}</span>
+                <span>{formatDate(row.LogInDate) === "01-01-1900" ? "Empty" : formatDate(row.LogInDate)}</span>
             ),
-        },{
+        },
+        {
             name: "Login Time",
             selector: "LogInTime",
             sortable: true,
             cell: (row) => (
-                <span>{formatTime(row.LogInTime)}</span>
+                <span>{formatTime(row.LogInTime) === "12:00:00 AM" ? "Empty" : formatTime(row.LogInTime)}</span>
             ),
-        },{
+        },
+        {
             name: "LogOut Date",
             selector: "LogOutDate",
             sortable: true,
             cell: (row) => (
-                <span>{formatDate(row.LogOutDate)}</span>
+                <span>{formatDate(row.LogOutDate) === "01-01-1900" ? "Empty" : formatDate(row.LogOutDate)}</span>
             ),
-        },{
+        },
+        {
             name: "LogOut Time",
             selector: "LogOutTime",
             sortable: true,
             cell: (row) => (
-                <span>{formatTime(row.LogOutTime)}</span>
+                <span>{formatTime(row.LogOutTime) === "12:00:00 AM" ? "Empty" : formatTime(row.LogOutTime)}</span>
             ),
         },
         // {

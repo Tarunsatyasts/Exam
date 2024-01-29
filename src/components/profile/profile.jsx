@@ -174,7 +174,11 @@ export const Profile = () => {
                               width={19}
                               height={19}
                           />{" "}
-                          <small> Email : {data?.MAIL}</small>
+                          <p className="display-inline-block m-0" style={{
+                            fontWeight: '600',
+                            textTransform: 'lowercase',
+                            color: '#000'
+                          }}> Email : {data?.MAIL}</p>
                         </a>
                         <i className="mdi mdi-settings-outline"/>
                         <a
@@ -187,7 +191,11 @@ export const Profile = () => {
                               height={17}
                               id="plus"
                           />&nbsp;
-                          <small>Address :{data?.ADDRESS}</small>{" "}
+                          <p className="display-inline-block m-0" style={{
+                            fontWeight: '600',
+                            textTransform: 'lowercase',
+                            color: '#000'
+                          }}>Address :{data?.ADDRESS}</p>{" "}
                         </a>
                       </div>
                     </div>

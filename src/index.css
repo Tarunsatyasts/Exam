@@ -48416,3 +48416,7 @@ text-decoration: none;
 .color-white{
     color: white;
 }
+
+.display-inline-block{
+    display: inline-block;
+}
