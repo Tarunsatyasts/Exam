@@ -8,7 +8,6 @@ export const Sidebar = () => {
 
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
-
   const [activeItems, setActiveItems] = useState({});
   const [isHovered, setIsHovered] = useState(false);
 

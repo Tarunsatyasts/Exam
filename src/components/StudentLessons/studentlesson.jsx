@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
@@ -14,20 +10,19 @@ import Search from "../../assets/search.jpg";
 const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
 
 export const StudentLessons = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const totalQuestions = data.length > 0 ? data[0]?.Questions.length : 0;
   const formik = useFormik({
-    initialValues: {
-      answers: Array(totalQuestions).fill().map(() => ({
-        QUESTION_ID: "",
-        QUESTION_NAME: "",
-        OPTION_ID: "",
-        OPTION_NAME: "",
-      })),
-    },
+    initialValues: Array(totalQuestions).fill().map(() => ({
+      QUESTION_ID: "",
+      QUESTION_NAME: "",
+      OPTION_ID: "",
+      OPTION_NAME: "",
+    })),
 
     onSubmit: () => {
 
@@ -51,6 +46,9 @@ export const StudentLessons = () => {
 
       if (response.ok) {
         alert("Submitted Successfully");
+        sessionStorage.setItem('lessonId', Id);
+        navigate('/home/result')
+
       } else {
         alert("Failed: " + result.message);
         console.log("sjfhsgfhg", formik.values);
@@ -70,30 +68,30 @@ export const StudentLessons = () => {
   };
 
 
-
-  const handleOptionSelect = (questionId, optionId,optionName,LessonName) => {
-    const currentAnswers = formik.values.answers[currentQuestionIndex] || {};
+  const handleOptionSelect = (questionId, optionId, optionName, LessonName) => {
+    const currentAnswers = formik.values[currentQuestionIndex] || {};
     const StudentId = localStorage.getItem("User");
     const question = data[0].Questions[currentQuestionIndex];
     const option = question.options.find(opt => opt.OPTION_ID === currentAnswers?.OPTION_ID);
-    formik.setFieldValue(`answers[${currentQuestionIndex}]`, {
+
+    formik.setFieldValue(currentQuestionIndex, {
       QUESTION_ID: question.Question_ID,
       Question_name: question.Question_name,
       OPTION_ID: optionId,
       OPTION_NAME: optionName,
-      Lession_ID:Id,
-      Lession_name:LessonName,
-      STUDENT_ID:StudentId,
-      SUBJECT_ID:"",
-      SEQNO:"",
-      EDITED_BY:"",
-      CREATED_BY:"",
-      ANSWER_TYPE:"radio"
-
+      Lession_ID: Id,
+      Lession_name: LessonName,
+      STUDENT_ID: StudentId,
+      SUBJECT_ID: "",
+      SEQNO: "",
+      EDITED_BY: "",
+      CREATED_BY: "",
+      ANSWER_TYPE: "radio"
     });
-
   };
+
   const { Id } = useParams();
+
   const videoRef = useRef(null);
 
   const refreshList = async () => {
@@ -209,16 +207,17 @@ export const StudentLessons = () => {
                                     <input
                                         type="radio"
                                         id={`option${option.OPTION_ID}`}
-                                        name={`answers[${currentQuestionIndex}].OPTION_ID`}
+                                        name={`OPTION_ID_${currentQuestionIndex}`}
                                         value={option.OPTION_ID}
-                                        checked={formik.values.answers[currentQuestionIndex]?.OPTION_ID === option.OPTION_ID}
-                                        onChange={() => handleOptionSelect(data[0].Questions[currentQuestionIndex].Question_ID, option.OPTION_ID,option.OPTION_NAME,data[0].Lession_Name)}
+                                        checked={formik.values[currentQuestionIndex]?.OPTION_ID === option.OPTION_ID}
+                                        onChange={() => handleOptionSelect(data[0].Questions[currentQuestionIndex].Question_ID, option.OPTION_ID, option.OPTION_NAME, data[0].Lession_Name)}
                                     />
                                     <span className="radio-checkmark"></span>
                                     <span className="radio-label">{option.OPTION_NAME}</span>
                                   </label>
                                 </div>
                             ))}
+
                           </div>
                           <div className="d-flex justify-content-end">
                             {currentQuestionIndex < totalQuestions - 1 ? (
