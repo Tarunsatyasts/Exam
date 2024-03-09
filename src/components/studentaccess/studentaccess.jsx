@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import Select from "react-select";
 import * as Yup from "yup";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 
 export const StudentAccess = () => {
   const [data, setData] = useState();
@@ -65,7 +65,7 @@ export const StudentAccess = () => {
       const StudentId = localStorage.getItem("User");
       try {
         const response = await fetch(
-          `${API_URL}Student/SaveStudentToSubjLink?StudentID=${StudentId}`,
+          `${API_URL}Student/SaveStudentToSubjLink/StudentID=${StudentId}`,
           {
             method: "POST",
             headers: {

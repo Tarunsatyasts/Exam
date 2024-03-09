@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useId } from "../home/IdContext";
 import Logo from "../../assets/images/Logo.png";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 export const Sidebar = () => {
   const { id } = useId();
 
@@ -35,10 +35,10 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-          `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${id}`,
-          {
-            headers: headers,
-          }
+        `${API_URL}Lession/GetLessionDetailsBySubject/SubjectID=${id}`,
+        {
+          headers: headers,
+        }
       );
 
       if (response.ok) {
@@ -69,12 +69,9 @@ export const Sidebar = () => {
         Authorization: `Bearer ${storedToken}`,
       };
 
-      const response = await fetch(
-        `${API_URL}Login/LogOut?UserID=${userId}`,
-        {
-          headers: headers,
-        }
-      );
+      const response = await fetch(`${API_URL}Login/LogOut?UserID=${userId}`, {
+        headers: headers,
+      });
 
       if (response.ok) {
         const data = await response.json();

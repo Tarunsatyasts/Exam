@@ -5,7 +5,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 
 export const Questions = () => {
   const [data, setData] = useState();
@@ -114,7 +114,7 @@ export const Questions = () => {
       Question_ID: "",
       Question_name: "",
       Lession_ID: "",
-      Lession_name: "",
+
       Subject_ID: "",
       Subject_Name: "",
       Status: "",
@@ -131,7 +131,7 @@ export const Questions = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${storedToken}`,
           },
-          body: JSON.stringify([values]),
+          body: JSON.stringify(values),
         });
 
         const result = await response.json();
@@ -231,8 +231,8 @@ export const Questions = () => {
                             (lesson) => lesson.Lession_ID === e.target.value
                           );
                           formik.setFieldValue(
-                            "Lession_Name",
-                            selectedLesson?.Lession_Name || ""
+                            "Lession_name",
+                            selectedLesson?.Lession_name || ""
                           );
                         }}
                         value={formik.values.Lession_ID}>

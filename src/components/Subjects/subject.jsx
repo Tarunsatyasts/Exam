@@ -5,7 +5,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 
 export const Subjects = () => {
   const columns = [
@@ -83,7 +83,7 @@ export const Subjects = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${storedToken}`,
           },
-          body: JSON.stringify([values]),
+          body: JSON.stringify(values),
         });
 
         const result = await response.json();

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
 import { useFormik } from "formik";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
+
 const Signup = () => {
   const formik = useFormik({
     initialValues: {

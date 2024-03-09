@@ -5,7 +5,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 
 export const Answers = () => {
   const [data, setData] = useState();
@@ -225,7 +225,7 @@ export const Answers = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Question/GetQuestionMasterByLession?Lession_ID=${selectedLessonID}`,
+        `${API_URL}Question/GetQuestionMasterByLession/${selectedLessonID}`,
         {
           headers: headers,
         }

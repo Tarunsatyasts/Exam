@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Student from "../../assets/images/student.png";
 import { useId } from "./IdContext";
+import { API_URL } from "../utils";
 export const Home = () => {
   const { setId } = useId();
 
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
-  const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+
   const refreshList = async () => {
     try {
       const storedToken = localStorage.getItem("access_token");
@@ -19,7 +20,7 @@ export const Home = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Student/GetSubjectbyStudent?StudentID=${StudentId}`,
+        `${API_URL}Student/GetSubjectbyStudent/StudentID=${StudentId}`,
         {
           headers: headers,
         }
@@ -81,7 +82,6 @@ export const Home = () => {
             </div>
           </div>
           <div className="row">
-
             {/*<div className="col-xl-3 col-xxl-4 col-sm-6">*/}
             {/*  <div className="card studentCard">*/}
             {/*    <div className="d-flex align-items-end row">*/}
@@ -97,7 +97,6 @@ export const Home = () => {
             {/*          </h5>*/}
             {/*          <p className="mb-2">Best seller of the month</p>*/}
 
-
             {/*          <div className="d-flex">*/}
             {/*            <Link to={"profile"}>*/}
             {/*              <button className="Submitbutton" type="submit">*/}
@@ -105,7 +104,6 @@ export const Home = () => {
             {/*              </button>*/}
             {/*            </Link>*/}
             {/*          </div>*/}
-
 
             {/*        </div>*/}
             {/*      </div>*/}
@@ -130,29 +128,30 @@ export const Home = () => {
                           <div className="card-body text-nowrap ag-courses-item_title">
                             <h5 className="card-title mb-0 admin-titleCard">
                               {Role_Id === "001" ? (
-                                  <span>msantytech Admin 🎉</span>
+                                <span>msantytech Admin 🎉</span>
                               ) : (
-                                  <span>Welcome Back 🎉</span>
+                                <span>Welcome Back 🎉</span>
                               )}{" "}
                               {/* 🎉 */}
                             </h5>
-                            <p className="mb-2 subCardTitle">Best seller of the month</p>
-
+                            <p className="mb-2 subCardTitle">
+                              Best seller of the month
+                            </p>
 
                             <div className="d-flex">
                               <Link to={"profile"}>
-                                <button className="Submitbutton m-0 color-white" type="submit">
+                                <button
+                                  className="Submitbutton m-0 color-white"
+                                  type="submit">
                                   View Profile
                                 </button>
                               </Link>
                             </div>
-
-
                           </div>
                         </div>
                         <div className="col-5 text-center text-sm-left ag-courses-item_title">
                           <div className="card-body pb-0 px-0 px-md-4">
-                            <img src={Student} height="140" alt="view sales"/>
+                            <img src={Student} height="140" alt="view sales" />
                           </div>
                         </div>
                       </div>
@@ -160,82 +159,67 @@ export const Home = () => {
                   </a>
                 </div>
 
+                {Role_Id === "001" ? (
+                  <>
+                    <div className="ag-courses_item">
+                      <a href="#" className="ag-courses-item_link">
+                        <div className="ag-courses-item_bg"></div>
 
-                {Role_Id === "001" ? <>
-                  <div className="ag-courses_item">
-                    <a href="#" className="ag-courses-item_link">
-                      <div className="ag-courses-item_bg"></div>
+                        <div className="ag-courses-item_title">56</div>
 
-                      <div className="ag-courses-item_title">
-                        56
-                      </div>
+                        <div className="ag-courses-item_date-box">
+                          Total :&nbsp;
+                          <span className="ag-courses-item_date">Employee</span>
+                        </div>
+                      </a>
+                    </div>
 
-                      <div className="ag-courses-item_date-box">
-                        Total :&nbsp;
-                        <span className="ag-courses-item_date">
-            Employee
-          </span>
-                      </div>
-                    </a>
-                  </div>
+                    <div className="ag-courses_item">
+                      <a href="#" className="ag-courses-item_link">
+                        <div className="ag-courses-item_bg"></div>
 
-                  <div className="ag-courses_item">
-                    <a href="#" className="ag-courses-item_link">
-                      <div className="ag-courses-item_bg"></div>
+                        <div className="ag-courses-item_title">08</div>
 
-                      <div className="ag-courses-item_title">
-                        08
-                      </div>
+                        <div className="ag-courses-item_date-box">
+                          Total :&nbsp;
+                          <span className="ag-courses-item_date">Tasks</span>
+                        </div>
+                      </a>
+                    </div>
 
-                      <div className="ag-courses-item_date-box">
-                        Total :&nbsp;
-                        <span className="ag-courses-item_date">
-            Tasks
-          </span>
-                      </div>
-                    </a>
-                  </div>
+                    <div className="ag-courses_item">
+                      <a href="#" className="ag-courses-item_link">
+                        <div className="ag-courses-item_bg"></div>
 
-                  <div className="ag-courses_item">
-                    <a href="#" className="ag-courses-item_link">
-                      <div className="ag-courses-item_bg"></div>
+                        <div className="ag-courses-item_title">10</div>
 
-                      <div className="ag-courses-item_title">
-                        10
-                      </div>
+                        <div className="ag-courses-item_date-box">
+                          Total :&nbsp;
+                          <span className="ag-courses-item_date">
+                            Questions
+                          </span>
+                        </div>
+                      </a>
+                    </div>
 
-                      <div className="ag-courses-item_date-box">
-                        Total :&nbsp;
-                        <span className="ag-courses-item_date">
-           Questions
-          </span>
-                      </div>
-                    </a>
-                  </div>
+                    <div className="ag-courses_item">
+                      <a href="#" className="ag-courses-item_link">
+                        <div className="ag-courses-item_bg"></div>
 
+                        <div className="ag-courses-item_title">15</div>
 
-                  <div className="ag-courses_item">
-                    <a href="#" className="ag-courses-item_link">
-                      <div className="ag-courses-item_bg"></div>
-
-                      <div className="ag-courses-item_title">
-                        15
-                      </div>
-
-                      <div className="ag-courses-item_date-box">
-                        Total :&nbsp;
-                        <span className="ag-courses-item_date">
-          Subjects
-          </span>
-                      </div>
-                    </a>
-                  </div>
-                </> : <></>}
-
-
+                        <div className="ag-courses-item_date-box">
+                          Total :&nbsp;
+                          <span className="ag-courses-item_date">Subjects</span>
+                        </div>
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
-
 
             {/*<div className="col-xl-3 col-xxl-4 col-sm-6">*/}
             {/*  <div className="card grd-card">*/}
@@ -560,27 +544,27 @@ export const Home = () => {
           </div>
           <div className="row">
             {data &&
-                data.map((subject, index) => (
-                    <>
-                      <div className="col-lg-3">
-                        <div class="modalsub" key={index}>
-                          <h1 class="modal__heading">
-                            Subject : {subject.SUbject_name}
-                          </h1>
-                          <p class="modal__text">
-                            Select the subject to view lessons and begin the task.
-                          </p>
-                          <div class="modal__buttons">
-                            <button
-                                className="modal__button modal__button--primary"
-                                onClick={() => handleSelectSubject(subject.SUBJECT)}>
-                              Select Subject
-                            </button>
-                          </div>
-                        </div>
+              data.map((subject, index) => (
+                <>
+                  <div className="col-lg-3">
+                    <div class="modalsub" key={index}>
+                      <h1 class="modal__heading">
+                        Subject : {subject.SUbject_name}
+                      </h1>
+                      <p class="modal__text">
+                        Select the subject to view lessons and begin the task.
+                      </p>
+                      <div class="modal__buttons">
+                        <button
+                          className="modal__button modal__button--primary"
+                          onClick={() => handleSelectSubject(subject.SUBJECT)}>
+                          Select Subject
+                        </button>
                       </div>
-                    </>
-                ))}
+                    </div>
+                  </div>
+                </>
+              ))}
           </div>
         </div>
       </div>
