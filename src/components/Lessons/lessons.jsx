@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -10,7 +10,9 @@ import * as Yup from "yup";
 export const Lessons = () => {
   const [data, setData] = useState();
   const [subjdata, setSubjData] = useState();
-
+  const [editdata, setEditData] = useState();
+  const navigate = useNavigate();
+  const { id } = useParams();
   const refreshList = () => {
     const storedToken = localStorage.getItem("access_token");
     const headers = {
@@ -50,7 +52,53 @@ export const Lessons = () => {
         console.error("Error fetching student details:", error);
       });
   };
+  useEffect(() => {
+    async function fetchData() {
+      if (id) {
+        try {
+          const storedToken = localStorage.getItem("access_token");
 
+          const headers = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+          };
+          const response = await fetch(
+            `${API_URL}Lession/GetLessionDetailsByLession/${id}`,
+            {
+              headers: headers,
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setEditData(data);
+          } else {
+            console.error(
+              "Error fetching student details:",
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error.message);
+        }
+      }
+    }
+
+    fetchData();
+  }, [id]);
+  useEffect(() => {
+    if (editdata && editdata.length > 0) {
+      formik.setValues({
+        Lession_ID: editdata[0].Lession_ID,
+        Lession_name: editdata[0].Lession_name,
+        Subject_ID: editdata[0].Subject_ID,
+        Subject_Name: editdata[0].Subject_Name,
+        Status: editdata[0].Status,
+        VIDEO_LINK: editdata[0].VIDEO_LINK,
+        CreatedBy: editdata[0].CreatedBy,
+      });
+    }
+  }, [editdata]);
   useEffect(() => {
     refreshList();
     lessonList();
@@ -69,20 +117,29 @@ export const Lessons = () => {
     onSubmit: async (values) => {
       const storedToken = localStorage.getItem("access_token");
       try {
-        const response = await fetch(API_URL + "Lession/SaveLession", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedToken}`,
-          },
-          body: JSON.stringify(values),
-        });
+        const response = await fetch(
+          `${API_URL}Lession/${id ? "Updatelession" : "SaveLession"}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${storedToken}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
 
         const result = await response.json();
 
         if (response.ok) {
-          alert("Created Successfully");
+          alert(`${id ? "Updated Successfully" : "Created Successfully"}`);
+          if (id) {
+            navigate(`/home/tasks`);
+          } else {
+            navigate(`/home/tasks`);
+          }
+
           lessonList();
         } else {
           alert("Failed: " + result.message);
@@ -124,7 +181,11 @@ export const Lessons = () => {
             <button
               className="Submitbutton mt-0 approved"
               type="submit"
-              onClick={() => handleApprove(row)}>
+              onClick={() =>
+                navigate(`/home/tasks/edit/${row.Lession_ID}`, {
+                  replace: true,
+                })
+              }>
               Edit
             </button>
           </div>
@@ -147,7 +208,9 @@ export const Lessons = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Add Tasks</Link>
+                <Link to={"/home/tasks"}>
+                  {id ? "Edit Tasks" : "Add Tasks"}
+                </Link>
               </li>
             </ol>
           </div>
@@ -172,6 +235,12 @@ export const Lessons = () => {
                         className="inputField"
                         onChange={formik.handleChange}
                         value={formik.values.Lession_name}
+                        // onChange={OnChange}
+                        // value={
+                        //   editdata && editdata.length > 0
+                        //     ? editdata[0].Lession_name
+                        //     : ""
+                        // }
                       />
                     </div>
                     <div className="col-lg-6">
@@ -212,13 +281,19 @@ export const Lessons = () => {
                         className="inputField"
                         onChange={formik.handleChange}
                         value={formik.values.VIDEO_LINK}
+                        // onChange={OnChange}
+                        // defaultValue={
+                        //   editdata && editdata.length > 0
+                        //     ? editdata[0].VIDEO_LINK
+                        //     : ""
+                        // }
                       />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-end">
                       <button className="Submitbutton" type="submit">
-                        Submit
+                        {id ? "Update" : "  Submit"}
                       </button>
                     </div>
                   </div>
@@ -226,25 +301,31 @@ export const Lessons = () => {
               </div>
               <div className="col-lg-3"></div>
             </div>
-            <section>
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="main dataTable">
-                    <DataTableExtensions {...tableData}>
-                      <DataTable
-                        columns={columns}
-                        data={data}
-                        noHeader
-                        defaultSortField="id"
-                        defaultSortAsc={false}
-                        pagination
-                        highlightOnHover
-                      />
-                    </DataTableExtensions>
+            {id ? (
+              <></>
+            ) : (
+              <>
+                <section>
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <div className="main dataTable">
+                        <DataTableExtensions {...tableData}>
+                          <DataTable
+                            columns={columns}
+                            data={data}
+                            noHeader
+                            defaultSortField="id"
+                            defaultSortAsc={false}
+                            pagination
+                            highlightOnHover
+                          />
+                        </DataTableExtensions>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>

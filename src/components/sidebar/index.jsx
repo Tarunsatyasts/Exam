@@ -321,7 +321,7 @@ export const Sidebar = () => {
               <div className="deznav-scroll">
                 <ul className="metismenu" id="menu">
                   <li className={activeItems["dashboard"] ? "mm-active" : ""}>
-                    <Link to={"/home"}>
+                    <Link to={""}>
                       <i class="bx bx-server"></i>
                       <span className="nav-text">Dashboard</span>
                     </Link>

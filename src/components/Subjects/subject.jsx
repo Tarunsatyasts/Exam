@@ -135,7 +135,13 @@ export const Subjects = () => {
         const result = await response.json();
 
         if (response.ok) {
-          alert("Created Successfully");
+          alert(`${id ? "Updated Successfully" : "Created Successfully"}`);
+          if (id) {
+            navigate(`/home/technology`);
+          } else {
+            navigate(`/home/technology`);
+          }
+
           refreshList();
         } else {
           alert("Failed: " + result.message);
@@ -149,41 +155,13 @@ export const Subjects = () => {
     },
   });
   const handleSubjectChange = (event) => {
-    // Call Formik's handleChange to update the Subject_Name value
     formik.handleChange(event);
 
-    // Check if editdata is available and has at least one element
     if (editdata && editdata.length > 0) {
-      // Manually update the Subject_ID value in the form's state
       formik.setFieldValue("Subject_ID", editdata[0].Subject_ID);
     }
   };
-  // const OnEdit = async (Id) => {
-  //   console.log("subjectId", Id);
-  //   try {
-  //     const storedToken = localStorage.getItem("access_token");
-  //     const StudentId = localStorage.getItem("User");
-  //     const headers = {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${storedToken}`,
-  //     };
 
-  //     const response = await fetch(`${API_URL}GetSubjectbySubject/:${Id}`, {
-  //       headers: headers,
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setData(data);
-  //       console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
-  //     } else {
-  //       console.error("Error fetching student details:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching student details:", error.message);
-  //   }
-  // };
   return (
     <>
       <div className="content-body">

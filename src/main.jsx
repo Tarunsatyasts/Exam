@@ -85,6 +85,10 @@ if (tokenId === "001") {
               index: true,
               element: <Students />,
             },
+            {
+              path: "edit/:id",
+              element: <Students />,
+            },
           ],
         },
         {
@@ -103,6 +107,10 @@ if (tokenId === "001") {
           children: [
             {
               index: true,
+              element: <Lessons />,
+            },
+            {
+              path: "edit/:id",
               element: <Lessons />,
             },
           ],
@@ -127,6 +135,10 @@ if (tokenId === "001") {
           children: [
             {
               index: true,
+              element: <Questions />,
+            },
+            {
+              path: "edit/:id",
               element: <Questions />,
             },
           ],

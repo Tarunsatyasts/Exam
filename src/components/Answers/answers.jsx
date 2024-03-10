@@ -65,21 +65,21 @@ export const Answers = () => {
       selector: "Lession_name",
     },
 
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div className="EditBtn">
-          <div className="d-flex justify-content-end ">
-            <button
-              className="Submitbutton mt-0 approved"
-              type="submit"
-              onClick={() => handleApprove(row)}>
-              Edit
-            </button>
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   name: "Actions",
+    //   cell: (row) => (
+    //     <div className="EditBtn">
+    //       <div className="d-flex justify-content-end ">
+    //         <button
+    //           className="Submitbutton mt-0 approved"
+    //           type="submit"
+    //           onClick={() => handleApprove(row)}>
+    //           Edit
+    //         </button>
+    //       </div>
+    //     </div>
+    //   ),
+    // },
   ];
 
   const answersList = () => {
@@ -101,25 +101,7 @@ export const Answers = () => {
         console.error("Error fetching student details:", error);
       });
   };
-  // const refreshList = () => {
-  //   const storedToken = localStorage.getItem("access_token");
-  //   const headers = {
-  //     Accept: "application/json",
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${storedToken}`,
-  //   };
 
-  //   fetch(API_URL + "Question/GetQuestionMaster", {
-  //     headers: headers,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setQuestionData(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching student details:", error);
-  //     });
-  // };
   const lessonList = () => {
     const storedToken = localStorage.getItem("access_token");
     const headers = {
@@ -195,6 +177,7 @@ export const Answers = () => {
 
         if (response.ok) {
           alert("Created Successfully");
+          answersList();
         } else {
           alert("Failed: " + result.message);
           console.error("Create failed:", result.message);
