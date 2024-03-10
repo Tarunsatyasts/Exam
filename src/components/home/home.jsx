@@ -20,7 +20,7 @@ export const Home = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Student/GetSubjectbyStudent/StudentID=${StudentId}`,
+        `${API_URL}Student/GetSubjectbyStudent/${StudentId}`,
         {
           headers: headers,
         }
@@ -41,7 +41,9 @@ export const Home = () => {
   useEffect(() => {
     refreshList();
   }, []);
+
   const handleSelectSubject = (selectedSubjectID) => {
+    console.log("subjectId", selectedSubjectID);
     setId(selectedSubjectID);
   };
   return (

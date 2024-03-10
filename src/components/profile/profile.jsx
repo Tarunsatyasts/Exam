@@ -21,7 +21,7 @@ export const Profile = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Student/GetStudentDetailsByID/StudentID=${StudentId}`,
+        `${API_URL}Student/GetStudentDetailsByID/${StudentId}`,
         {
           headers: headers,
         }

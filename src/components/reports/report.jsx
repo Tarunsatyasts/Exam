@@ -120,7 +120,7 @@ export const Reports = () => {
         const dateString =
           values.date instanceof Date ? values.date.toISOString() : values.date;
         const response = await fetch(
-          `${API_URL}Report/GetLogDetails/Date=${dateString}`,
+          `${API_URL}Report/GetLogDetails/${dateString}`,
           {
             headers: headers,
           }

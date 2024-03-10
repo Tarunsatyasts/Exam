@@ -115,6 +115,10 @@ if (tokenId === "001") {
               index: true,
               element: <Subjects />,
             },
+            {
+              path: "edit/:id",
+              element: <Subjects />,
+            },
           ],
         },
         {

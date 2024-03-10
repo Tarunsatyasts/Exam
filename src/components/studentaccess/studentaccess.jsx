@@ -65,7 +65,7 @@ export const StudentAccess = () => {
       const StudentId = localStorage.getItem("User");
       try {
         const response = await fetch(
-          `${API_URL}Student/SaveStudentToSubjLink/StudentID=${StudentId}`,
+          `${API_URL}Student/SaveStudentToSubjLink`,
           {
             method: "POST",
             headers: {
@@ -73,11 +73,11 @@ export const StudentAccess = () => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${storedToken}`,
             },
-            body: JSON.stringify([values]),
+            body: JSON.stringify(values),
           }
         );
 
-        const result = await response.json();
+        const result = await response;
 
         if (response.ok) {
           alert("Created Successfully");

@@ -6,7 +6,7 @@ import { API_URL } from "../utils";
 const Signup = () => {
   const formik = useFormik({
     initialValues: {
-      STUDENT_ID: "",
+      Student_ID: "",
       NAME: "",
       MOBILE: "",
       MAIL: "",
@@ -27,7 +27,7 @@ const Signup = () => {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify([values]),
+          body: JSON.stringify(values),
         });
 
         const result = await response.json();

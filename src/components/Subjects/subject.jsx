@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { API_URL } from "../utils";
 
 export const Subjects = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const columns = [
     {
       name: "Technology Id",
@@ -27,7 +29,12 @@ export const Subjects = () => {
             <button
               className="Submitbutton mt-0 approved"
               type="submit"
-              onClick={() => handleApprove(row)}>
+              // onClick={() => OnEdit(row.Subject_ID)}
+              onClick={() =>
+                navigate(`/home/technology/edit/${row.Subject_ID}`, {
+                  replace: true,
+                })
+              }>
               Edit
             </button>
           </div>
@@ -37,6 +44,7 @@ export const Subjects = () => {
   ];
 
   const [data, setData] = useState();
+  const [editdata, setEditData] = useState();
 
   const refreshList = () => {
     const storedToken = localStorage.getItem("access_token");
@@ -61,13 +69,48 @@ export const Subjects = () => {
   useEffect(() => {
     refreshList();
   }, []);
+  useEffect(() => {
+    async function fetchData() {
+      if (id) {
+        try {
+          const storedToken = localStorage.getItem("access_token");
+          const StudentId = localStorage.getItem("User");
+          const headers = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+          };
+          const response = await fetch(
+            `${API_URL}Subject/GetSubjectbySubject/${id}`,
+            {
+              headers: headers,
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setEditData(data);
+            // setData(data);
+          } else {
+            console.error(
+              "Error fetching student details:",
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error.message);
+        }
+      }
+    }
+
+    fetchData();
+  }, [id]);
   const tableData = {
     columns,
     data,
   };
   const formik = useFormik({
     initialValues: {
-      Subject_ID: "",
+      Subject_ID: editdata ? editdata[0].Subject_ID : "",
       Subject_Name: "",
       Status: "",
       CreatedBy: "",
@@ -76,16 +119,19 @@ export const Subjects = () => {
     onSubmit: async (values, { resetForm }) => {
       const storedToken = localStorage.getItem("access_token");
       try {
-        const response = await fetch(API_URL + "Subject/SaveSubject", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedToken}`,
-          },
-          body: JSON.stringify(values),
-        });
-
+        const method = "POST";
+        const response = await fetch(
+          `${API_URL}Subject/${id ? "UpdateSubject" : "SaveSubject"}`,
+          {
+            method: method,
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${storedToken}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
         const result = await response.json();
 
         if (response.ok) {
@@ -102,7 +148,42 @@ export const Subjects = () => {
       }
     },
   });
+  const handleSubjectChange = (event) => {
+    // Call Formik's handleChange to update the Subject_Name value
+    formik.handleChange(event);
 
+    // Check if editdata is available and has at least one element
+    if (editdata && editdata.length > 0) {
+      // Manually update the Subject_ID value in the form's state
+      formik.setFieldValue("Subject_ID", editdata[0].Subject_ID);
+    }
+  };
+  // const OnEdit = async (Id) => {
+  //   console.log("subjectId", Id);
+  //   try {
+  //     const storedToken = localStorage.getItem("access_token");
+  //     const StudentId = localStorage.getItem("User");
+  //     const headers = {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${storedToken}`,
+  //     };
+
+  //     const response = await fetch(`${API_URL}GetSubjectbySubject/:${Id}`, {
+  //       headers: headers,
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setData(data);
+  //       console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
+  //     } else {
+  //       console.error("Error fetching student details:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching student details:", error.message);
+  //   }
+  // };
   return (
     <>
       <div className="content-body">
@@ -113,7 +194,9 @@ export const Subjects = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Add Technology</Link>
+                <Link to={"/home/technology"}>
+                  {id ? "Edit Technology" : "Add Technology"}
+                </Link>
               </li>
             </ol>
           </div>
@@ -137,15 +220,22 @@ export const Subjects = () => {
                         id="Subject_Name"
                         className="inputField"
                         placeholder="technology"
-                        onChange={formik.handleChange}
-                        value={formik.values.Subject_Name}
+                        // onChange={formik.handleChange}
+                        onChange={handleSubjectChange}
+                        initialValues={formik.values}
+                        // value={formik.values}
+                        defaultValue={
+                          editdata && editdata.length > 0
+                            ? editdata[0].Subject_Name
+                            : ""
+                        }
                       />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-end">
                       <button className="Submitbutton" type="submit">
-                        Submit
+                        {id ? "Update" : "  Submit"}
                       </button>
                     </div>
                   </div>
@@ -153,26 +243,31 @@ export const Subjects = () => {
               </div>
               <div className="col-lg-3"></div>
             </div>
-
-            <section>
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="main dataTable">
-                    <DataTableExtensions {...tableData}>
-                      <DataTable
-                        columns={columns}
-                        data={data}
-                        noHeader
-                        defaultSortField="id"
-                        defaultSortAsc={false}
-                        pagination
-                        highlightOnHover
-                      />
-                    </DataTableExtensions>
+            {id ? (
+              <></>
+            ) : (
+              <>
+                <section>
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <div className="main dataTable">
+                        <DataTableExtensions {...tableData}>
+                          <DataTable
+                            columns={columns}
+                            data={data}
+                            noHeader
+                            defaultSortField="id"
+                            defaultSortAsc={false}
+                            pagination
+                            highlightOnHover
+                          />
+                        </DataTableExtensions>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>
