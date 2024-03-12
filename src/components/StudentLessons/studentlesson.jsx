@@ -104,7 +104,7 @@ export const StudentLessons = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Question/GetVideoandquestionsByLession/Lession_ID=${Id}`,
+        `${API_URL}Question/GetVideoandquestionsByLession/${Id}`,
         {
           headers: headers,
         }

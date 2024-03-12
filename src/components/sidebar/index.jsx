@@ -5,7 +5,7 @@ import Logo from "../../assets/images/Logo.png";
 import { API_URL } from "../utils";
 export const Sidebar = () => {
   const { id } = useId();
-
+  console.log("id======sidebar=========", id);
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
   const [activeItems, setActiveItems] = useState({});
@@ -35,7 +35,7 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Lession/GetLessionDetailsBySubject/SubjectID=${id}`,
+        `${API_URL}Lession/GetLessionDetailsBySubject/${id}`,
         {
           headers: headers,
         }
@@ -56,7 +56,7 @@ export const Sidebar = () => {
     Logoutreport();
     localStorage.removeItem("access_token");
     sessionStorage.removeItem("id", JSON.stringify(id));
-    navigate("/");
+    navigate("https://msantytech.com/");
   };
 
   const Logoutreport = async () => {
@@ -69,7 +69,7 @@ export const Sidebar = () => {
         Authorization: `Bearer ${storedToken}`,
       };
 
-      const response = await fetch(`${API_URL}Login/LogOut?UserID=${userId}`, {
+      const response = await fetch(`${API_URL}Login/LogOut/UserID=${userId}`, {
         headers: headers,
       });
 
