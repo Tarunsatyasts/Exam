@@ -48416,3 +48416,8 @@ text-decoration: none;
 .color-white{
     color: white;
 }
+
+.authincation{background:#fff!important;}
+.authincation::before{background:#fff!important;}
+
+.bg-black{ background-color: #0069FF!important;}
