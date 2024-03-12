@@ -48421,3 +48421,6 @@ text-decoration: none;
 .authincation::before{background:#fff!important;}
 
 .bg-black{ background-color: #0069FF!important;}
+.display-inline-block{
+    display: inline-block;
+}

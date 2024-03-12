@@ -1,61 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
 import { useFormik } from "formik";
-
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/";
+import { API_URL } from "../utils";
 
 const Login = () => {
   const navigate = useNavigate();
   const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-      grant_type: "password",
-    },
+    initialValues: {},
     onSubmit: async (values) => {
       try {
-        const url = `${API_URL}Token`;
-
-        const formData = new URLSearchParams();
-        formData.append("username", values.username);
-        formData.append("password", values.password);
-        formData.append("grant_type", values.grant_type);
+        const url = `${API_URL}Login/GetLogin`;
 
         const response = await fetch(url, {
-          method: "POST",
+          method: "POST", // Assuming you are sending data to the server
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
           },
-          body: formData.toString(),
+          body: JSON.stringify(values), // Convert form data to JSON
         });
 
         const result = await response.json();
-        localStorage.setItem("access_token", result.access_token);
-
-        if (response.ok) {
-          alert("Login Successful");
-          const secondApiUrl = `${API_URL}api/Login/GetLogin?UserID=${values.username}&Password=${values.password}`;
-          const secondApiResponse = await fetch(secondApiUrl, {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          });
-
-          const secondApiResult = await secondApiResponse.json();
-          if (secondApiResponse.ok) {
-            navigate("/home");
-
-            localStorage.setItem("Id", secondApiResult.Role_ID);
-            localStorage.setItem("User", secondApiResult.UserID);
-          } else {
-            alert("Second API Failed: " + secondApiResult.message);
-          }
-        } else {
-          alert("Login Failed: " + result.message);
-        }
+        localStorage.setItem("access_token", result.token);
+        localStorage.setItem("Id", result.data.Roles);
+        localStorage.setItem("User", result.data.UserID);
+        navigate("/home");
       } catch (error) {
         alert("Error: " + error.message);
       }
@@ -87,7 +56,7 @@ const Login = () => {
                           </label>
                           <input
                             type="text"
-                            name="username"
+                            name="UserId"
                             className="form-control loginForm"
                             defaultValue=""
                             onChange={formik.handleChange}
@@ -100,7 +69,7 @@ const Login = () => {
                           </label>
                           <input
                             type="password"
-                            name="password"
+                            name="Password"
                             className="form-control loginForm"
                             defaultValue=""
                             onChange={formik.handleChange}

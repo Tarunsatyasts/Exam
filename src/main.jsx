@@ -28,13 +28,14 @@ import { IndexProfile } from "./components/profile";
 import { Profile } from "./components/profile/profile";
 import { IndexStudentAccess } from "./components/studentaccess";
 import { StudentAccess } from "./components/studentaccess/studentaccess";
-import {IndexReports} from "./components/reports/index.jsx";
-import {Reports} from "./components/reports/report.jsx";
+import { IndexReports } from "./components/reports/index.jsx";
+import { Reports } from "./components/reports/report.jsx";
+import { IndexResults } from "./components/result/index.jsx";
+import { Results } from "./components/result/result.jsx";
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const token = localStorage.getItem("access_token");
     if (!token) {
       // Redirect to login if token is not present
@@ -84,6 +85,10 @@ if (tokenId === "001") {
               index: true,
               element: <Students />,
             },
+            {
+              path: "edit/:id",
+              element: <Students />,
+            },
           ],
         },
         {
@@ -104,6 +109,10 @@ if (tokenId === "001") {
               index: true,
               element: <Lessons />,
             },
+            {
+              path: "edit/:id",
+              element: <Lessons />,
+            },
           ],
         },
         {
@@ -114,6 +123,10 @@ if (tokenId === "001") {
               index: true,
               element: <Subjects />,
             },
+            {
+              path: "edit/:id",
+              element: <Subjects />,
+            },
           ],
         },
         {
@@ -122,6 +135,10 @@ if (tokenId === "001") {
           children: [
             {
               index: true,
+              element: <Questions />,
+            },
+            {
+              path: "edit/:id",
               element: <Questions />,
             },
           ],
@@ -135,7 +152,8 @@ if (tokenId === "001") {
               element: <Answers />,
             },
           ],
-        },  {
+        },
+        {
           path: "reports",
           element: <IndexReports />,
           children: [
@@ -197,6 +215,16 @@ if (tokenId === "001") {
             {
               index: true,
               element: <Profile />,
+            },
+          ],
+        },
+        {
+          path: "result",
+          element: <IndexResults />,
+          children: [
+            {
+              index: true,
+              element: <Results />,
             },
           ],
         },

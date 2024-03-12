@@ -1,16 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 
 export const Questions = () => {
   const [data, setData] = useState();
   const [lessondata, setLessonData] = useState();
   const [subjectdata, setSubjectData] = useState();
+  const [editdata, setEditData] = useState();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    async function fetchData() {
+      if (id) {
+        try {
+          const storedToken = localStorage.getItem("access_token");
+
+          const headers = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+          };
+          const response = await fetch(
+            `${API_URL}Question/GetQuestionMasterByQuestion/${id}`,
+            {
+              headers: headers,
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setEditData(data);
+          } else {
+            console.error(
+              "Error fetching student details:",
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error.message);
+        }
+      }
+    }
+
+    fetchData();
+  }, [id]);
+  useEffect(() => {
+    if (editdata && editdata.length > 0) {
+      formik.setValues({
+        Question_ID: editdata[0].Question_ID,
+        Question_name: editdata[0].Question_name,
+        Lession_ID: editdata[0].Lession_ID,
+        Lession_name: editdata[0].Lession_name,
+        Subject_ID: editdata[0].Subject_ID,
+        Subject_Name: editdata[0].Subject_Name,
+        Status: "",
+        CreatedBy: editdata[0].CreatedBy,
+      });
+    }
+  }, [editdata]);
   const columns = [
     {
       name: "Question ID",
@@ -39,7 +90,11 @@ export const Questions = () => {
             <button
               className="Submitbutton mt-0 approved"
               type="submit"
-              onClick={() => handleApprove(row)}>
+              onClick={() =>
+                navigate(`/home/questions/edit/${row.Question_ID}`, {
+                  replace: true,
+                })
+              }>
               Edit
             </button>
           </div>
@@ -114,7 +169,6 @@ export const Questions = () => {
       Question_ID: "",
       Question_name: "",
       Lession_ID: "",
-      Lession_name: "",
       Subject_ID: "",
       Subject_Name: "",
       Status: "",
@@ -124,20 +178,28 @@ export const Questions = () => {
     onSubmit: async (values) => {
       const storedToken = localStorage.getItem("access_token");
       try {
-        const response = await fetch(API_URL + "Question/SaveQuestion", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedToken}`,
-          },
-          body: JSON.stringify([values]),
-        });
+        const response = await fetch(
+          `${API_URL}Question/${id ? "Updatequestion" : "SaveQuestion"}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${storedToken}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
 
         const result = await response.json();
 
         if (response.ok) {
-          alert("Created Successfully");
+          alert(`${id ? "Updated Successfully" : "Created Successfully"}`);
+          if (id) {
+            navigate(`/home/questions`);
+          } else {
+            navigate(`/home/questions`);
+          }
         } else {
           alert("Failed: " + result.message);
           console.log("sjfhsgfhg", values);
@@ -164,7 +226,9 @@ export const Questions = () => {
                 <Link to={"/"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
-                <Link to={"students"}>Add Questions</Link>
+                <Link to={"/home/questions"}>
+                  {id ? "Edit question" : "Add question"}
+                </Link>
               </li>
             </ol>
           </div>
@@ -231,8 +295,8 @@ export const Questions = () => {
                             (lesson) => lesson.Lession_ID === e.target.value
                           );
                           formik.setFieldValue(
-                            "Lession_Name",
-                            selectedLesson?.Lession_Name || ""
+                            "Lession_name",
+                            selectedLesson?.Lession_name || ""
                           );
                         }}
                         value={formik.values.Lession_ID}>
@@ -251,7 +315,7 @@ export const Questions = () => {
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-end">
                       <button className="Submitbutton" type="submit">
-                        Submit
+                        {id ? "Update" : "  Submit"}
                       </button>
                     </div>
                   </div>
@@ -259,25 +323,31 @@ export const Questions = () => {
               </div>
               <div className="col-lg-3"></div>
             </div>
-            <section>
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="main dataTable">
-                    <DataTableExtensions {...tableData}>
-                      <DataTable
-                        columns={columns}
-                        data={data}
-                        noHeader
-                        defaultSortField="id"
-                        defaultSortAsc={false}
-                        pagination
-                        highlightOnHover
-                      />
-                    </DataTableExtensions>
+            {id ? (
+              <></>
+            ) : (
+              <>
+                <section>
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <div className="main dataTable">
+                        <DataTableExtensions {...tableData}>
+                          <DataTable
+                            columns={columns}
+                            data={data}
+                            noHeader
+                            defaultSortField="id"
+                            defaultSortAsc={false}
+                            pagination
+                            highlightOnHover
+                          />
+                        </DataTableExtensions>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>

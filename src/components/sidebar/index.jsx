@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useId } from "../home/IdContext";
 import Logo from "../../assets/images/Logo.png";
-const API_URL = "http://183.82.146.20:82/MSANTYTECH_API/api/";
+import { API_URL } from "../utils";
 export const Sidebar = () => {
   const { id } = useId();
 
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
-
   const [activeItems, setActiveItems] = useState({});
   const [isHovered, setIsHovered] = useState(false);
 
@@ -36,10 +35,10 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-          `${API_URL}Lession/GetLessionDetailsBySubject?SubjectID=${id}`,
-          {
-            headers: headers,
-          }
+        `${API_URL}Lession/GetLessionDetailsBySubject/SubjectID=${id}`,
+        {
+          headers: headers,
+        }
       );
 
       if (response.ok) {
@@ -70,12 +69,9 @@ export const Sidebar = () => {
         Authorization: `Bearer ${storedToken}`,
       };
 
-      const response = await fetch(
-        `${API_URL}Login/LogOut?UserID=${userId}`,
-        {
-          headers: headers,
-        }
-      );
+      const response = await fetch(`${API_URL}Login/LogOut?UserID=${userId}`, {
+        headers: headers,
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -325,7 +321,7 @@ export const Sidebar = () => {
               <div className="deznav-scroll">
                 <ul className="metismenu" id="menu">
                   <li className={activeItems["dashboard"] ? "mm-active" : ""}>
-                    <Link to={"/home"}>
+                    <Link to={""}>
                       <i class="bx bx-server"></i>
                       <span className="nav-text">Dashboard</span>
                     </Link>
