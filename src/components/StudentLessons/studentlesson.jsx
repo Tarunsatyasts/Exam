@@ -44,17 +44,18 @@ export const StudentLessons = () => {
         body: JSON.stringify(formik.values),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        alert("Submitted Successfully");
-        sessionStorage.setItem("lessonId", Id);
-        navigate("/home/result");
-      } else {
-        alert("please try again");
-        // console.log("sjfhsgfhg", formik.values);
-        // console.error("Create failed:", result.message);
-      }
+      // const result = await response.json();
+      alert("Submitted Successfully");
+      sessionStorage.setItem("lessonId", Id);
+      navigate("/home/result");
+      // if (response.ok) {
+      //   sessionStorage.setItem("lessonId", Id);
+      //   navigate("/home/result");
+      // } else {
+      //   alert("please try again");
+      //   // console.log("sjfhsgfhg", formik.values);
+      //   // console.error("Create failed:", result.message);
+      // }
     } catch (error) {
       alert("please try again");
       // console.error("Fetch error:", error.message);
