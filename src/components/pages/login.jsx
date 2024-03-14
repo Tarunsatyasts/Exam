@@ -55,6 +55,7 @@ const Login = () => {
                             <strong>User Id</strong>
                           </label>
                           <input
+                          placeholder="Employee ID"
                             type="text"
                             name="UserId"
                             className="form-control loginForm"
@@ -68,6 +69,7 @@ const Login = () => {
                             <strong>Password</strong>
                           </label>
                           <input
+                          placeholder="Password"
                             type="password"
                             name="Password"
                             className="form-control loginForm"

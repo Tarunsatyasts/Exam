@@ -57,6 +57,8 @@ export const Students = () => {
         SECURITY_QUESTION: editdata[0].SECURITY_QUESTION,
         SECURITY_ANSWER: editdata[0].SECURITY_ANSWER,
         Status: editdata[0].Status,
+        IDNO: editdata[0].IDNO,
+
       });
     }
   }, [editdata]);
