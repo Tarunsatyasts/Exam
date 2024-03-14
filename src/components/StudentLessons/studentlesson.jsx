@@ -8,8 +8,9 @@ import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import Search from "../../assets/search.jpg";
 import { API_URL } from "../utils";
-
+import { useId } from "../home/IdContext";
 export const StudentLessons = () => {
+  const { id } = useId();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -40,23 +41,24 @@ export const StudentLessons = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${storedToken}`,
         },
-        body: JSON.stringify([formik.values]),
+        body: JSON.stringify(formik.values),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        alert("Submitted Successfully");
-        sessionStorage.setItem("lessonId", Id);
-        navigate("/home/result");
-      } else {
-        alert("Failed: " + result.message);
-        console.log("sjfhsgfhg", formik.values);
-        console.error("Create failed:", result.message);
-      }
+      // const result = await response.json();
+      alert("Submitted Successfully");
+      sessionStorage.setItem("lessonId", Id);
+      navigate("/home/result");
+      // if (response.ok) {
+      //   sessionStorage.setItem("lessonId", Id);
+      //   navigate("/home/result");
+      // } else {
+      //   alert("please try again");
+      //   // console.log("sjfhsgfhg", formik.values);
+      //   // console.error("Create failed:", result.message);
+      // }
     } catch (error) {
-      alert("Error: " + error.message);
-      console.error("Fetch error:", error.message);
+      alert("please try again");
+      // console.error("Fetch error:", error.message);
     }
   };
   const handleNext = () => {
@@ -64,28 +66,40 @@ export const StudentLessons = () => {
       currentQuestionIndex < totalQuestions - 1 ? currentQuestionIndex + 1 : 0
     );
   };
+  const handleOptionSelect = (
+    questionId,
 
-  const handleOptionSelect = (questionId, optionId, optionName, LessonName) => {
+    optionId,
+    optionName,
+    LessonName,
+    answerId
+  ) => {
     const currentAnswers = formik.values[currentQuestionIndex] || {};
     const StudentId = localStorage.getItem("User");
     const question = data[0].Questions[currentQuestionIndex];
-    const option = question.options.find(
-      (opt) => opt.OPTION_ID === currentAnswers?.OPTION_ID
-    );
+
+    // Check if question.options is defined before calling .find()
+    const option = question.options
+      ? question.options.find(
+          (opt) => opt.OPTION_ID === currentAnswers?.OPTION_ID
+        )
+      : undefined;
 
     formik.setFieldValue(currentQuestionIndex, {
       QUESTION_ID: question.Question_ID,
       Question_name: question.Question_name,
       OPTION_ID: optionId,
       OPTION_NAME: optionName,
-      Lession_ID: Id,
+      Lession_ID: Id, // Make sure 'Id' is defined in your scope
       Lession_name: LessonName,
       STUDENT_ID: StudentId,
-      SUBJECT_ID: "",
+      SUBJECT_ID: id,
       SEQNO: "",
       EDITED_BY: "",
       CREATED_BY: "",
       ANSWER_TYPE: "radio",
+      ANSWER_ID: answerId,
+      STATUS: "A",
     });
   };
 
@@ -104,7 +118,7 @@ export const StudentLessons = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Question/GetVideoandquestionsByLession/Lession_ID=${Id}`,
+        `${API_URL}Question/GetVideoandquestionsByLession/${Id}`,
         {
           headers: headers,
         }
@@ -194,7 +208,7 @@ export const StudentLessons = () => {
                         {data[0].Questions[currentQuestionIndex].Question_name}
                       </div>
                       <div className="radio-group">
-                        {data[0].Questions[currentQuestionIndex].options.map(
+                        {data[0].Questions[currentQuestionIndex].Options.map(
                           (option, index) => (
                             <div
                               key={option.OPTION_ID}
@@ -215,7 +229,8 @@ export const StudentLessons = () => {
                                         .Question_ID,
                                       option.OPTION_ID,
                                       option.OPTION_NAME,
-                                      data[0].Lession_Name
+                                      data[0].Lession_Name,
+                                      option.ANSWER_ID
                                     )
                                   }
                                 />

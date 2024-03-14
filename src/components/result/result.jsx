@@ -24,7 +24,7 @@ export const Results = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Answer/GetResultByLession?Lession_ID=${LessonId}&Student_ID=${StudentId}`,
+        `${API_URL}Answer/GetResultByLession/${LessonId}/${StudentId}`,
         {
           headers: headers,
         }
@@ -85,13 +85,16 @@ export const Results = () => {
                 <div className="Result-DES">
                   <div>
                     <div className="ResultSummary">
-                      {data?.map((value, index) => (
+                      {data?.map((item, index) => (
                         <div className="ResultReaction" key={index}>
-                          <img className="ResultReac-img" src={ResultImg} />
-                          <p className="ResultReac">Total questions</p>
+                          <img
+                            className="ResultReac-img"
+                            src={ResultImg}
+                            alt="Result"
+                          />
+                          <p className="ResultReac">{item.RESULTTYPE}</p>
                           <p className="ResultReac-Score">
-                            {" "}
-                            <span className="ResultOutof">{value}</span>
+                            <span className="ResultOutof">{item.TOTAL}</span>
                           </p>
                         </div>
                       ))}

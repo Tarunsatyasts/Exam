@@ -559,7 +559,9 @@ export const Home = () => {
                       <div class="modal__buttons">
                         <button
                           className="modal__button modal__button--primary"
-                          onClick={() => handleSelectSubject(subject.SUBJECT)}>
+                          onClick={() =>
+                            handleSelectSubject(subject.SUBJECT_ID)
+                          }>
                           Select Subject
                         </button>
                       </div>

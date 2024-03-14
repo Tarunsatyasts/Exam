@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useId } from "../home/IdContext";
 import Logo from "../../assets/images/Logo.png";
 import { API_URL } from "../utils";
+
 export const Sidebar = () => {
   const { id } = useId();
 
@@ -10,7 +11,7 @@ export const Sidebar = () => {
   const [data, setData] = useState();
   const [activeItems, setActiveItems] = useState({});
   const [isHovered, setIsHovered] = useState(false);
-
+  const navigate = useNavigate();
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -35,7 +36,7 @@ export const Sidebar = () => {
       };
 
       const response = await fetch(
-        `${API_URL}Lession/GetLessionDetailsBySubject/SubjectID=${id}`,
+        `${API_URL}Lession/GetLessionDetailsBySubject/${id}`,
         {
           headers: headers,
         }
@@ -44,7 +45,6 @@ export const Sidebar = () => {
       if (response.ok) {
         const data = await response.json();
         setData(data);
-        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
       } else {
         console.error("Error fetching student details:", response.statusText);
       }
@@ -55,10 +55,9 @@ export const Sidebar = () => {
   const logout = () => {
     Logoutreport();
     localStorage.removeItem("access_token");
-    sessionStorage.removeItem("id", JSON.stringify(id));
+    sessionStorage.removeItem("id", id);
     navigate("/");
   };
-
   const Logoutreport = async () => {
     try {
       const storedToken = localStorage.getItem("access_token");
@@ -69,14 +68,12 @@ export const Sidebar = () => {
         Authorization: `Bearer ${storedToken}`,
       };
 
-      const response = await fetch(`${API_URL}Login/LogOut?UserID=${userId}`, {
+      const response = await fetch(`${API_URL}Login/LogOut/UserID=${userId}`, {
         headers: headers,
       });
 
       if (response.ok) {
         const data = await response.json();
-
-        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
       } else {
         console.error("Error fetching student details:", response.statusText);
       }
@@ -286,7 +283,9 @@ export const Sidebar = () => {
                         <span className="ml-2">Profile </span>
                       </Link>
 
-                      <Link className="dropdown-item ai-icon" onClick={logout}>
+                      <button
+                        className="dropdown-item ai-icon"
+                        onClick={logout}>
                         <svg
                           id="icon-logout"
                           xmlns="http://www.w3.org/2000/svg"
@@ -304,7 +303,7 @@ export const Sidebar = () => {
                           <line x1={21} y1={12} x2={9} y2={12} />
                         </svg>
                         <span className="ml-2">Logout </span>
-                      </Link>
+                      </button>
                     </div>
                   </li>
                 </ul>

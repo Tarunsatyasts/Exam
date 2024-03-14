@@ -5,6 +5,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
 import { API_URL } from "../utils";
 
 export const Reports = () => {
@@ -25,9 +26,13 @@ export const Reports = () => {
       sortable: true,
       cell: (row) => (
         <span>
-          {formatDate(row.LogInDate) === "01-01-1900"
+          {moment(row.LogInDate).format("DD-MM-YYYY")}
+          {/* {moment(row.LogInDate).format("YYYY-MM-DD") === " " || "null"
             ? "Empty"
-            : formatDate(row.LogInDate)}
+            : moment(row.LogInDate).format("DD-MM-YYYY")} */}
+          {/* {formatDate(row.LogInDate) === "01-01-1900"
+            ? "Empty"
+            : formatDate(row.LogInDate)} */}
         </span>
       ),
     },
@@ -37,9 +42,10 @@ export const Reports = () => {
       sortable: true,
       cell: (row) => (
         <span>
-          {formatTime(row.LogInTime) === "12:00:00 AM"
+          {moment(row.LogInTime).format("HH:mm:ss")}
+          {/* {formatTime(row.LogInTime) === "12:00:00 AM"
             ? "Empty"
-            : formatTime(row.LogInTime)}
+            : formatTime(row.LogInTime)} */}
         </span>
       ),
     },
@@ -49,9 +55,11 @@ export const Reports = () => {
       sortable: true,
       cell: (row) => (
         <span>
-          {formatDate(row.LogOutDate) === "01-01-1900"
+          {/* {isValidDate ? moment(row.LogOutDate).format("DD-MM-YYYY") : "Empty"} */}
+          {moment(row.LogOutDate).format("YYYY-MM-DD") === "1970-01-01" ||
+          "null"
             ? "Empty"
-            : formatDate(row.LogOutDate)}
+            : moment(row.LogOutDate).format("DD-MM-YYYY")}
         </span>
       ),
     },
@@ -61,9 +69,13 @@ export const Reports = () => {
       sortable: true,
       cell: (row) => (
         <span>
-          {formatTime(row.LogOutTime) === "12:00:00 AM"
+          {moment(row.LogOutTime).format("HH:mm:ss") === "1970-01-01" || "null"
             ? "Empty"
-            : formatTime(row.LogOutTime)}
+            : moment(row.LogOutTime).format("HH:mm:ss")}
+          {/* {moment(row.LogOutTime).format("HH:mm:ss")} */}
+          {/* {formatTime(row.LogOutTime) === "12:00:00 AM"
+            ? "Empty"
+            : formatTime(row.LogOutTime)} */}
         </span>
       ),
     },
@@ -85,17 +97,17 @@ export const Reports = () => {
   ];
 
   const [data, setData] = useState();
-  const formatDate = (dateString) => {
-    const parts = dateString.split(" ");
-    const datePart = parts[0];
-    const [day, month, year] = datePart.split("-");
-    return `${day}-${month}-${year}`;
-  };
+  // const formatDate = (dateString) => {
+  //   const parts = dateString;
+  //   const datePart = parts;
+  //   const [day, month, year] = datePart;
+  //   return `${day}-${month}-${year}`;
+  // };
 
-  const formatTime = (timeString) => {
-    const time = new Date(`2000-01-01T${timeString}`);
-    return time.toLocaleTimeString();
-  };
+  // const formatTime = (timeString) => {
+  //   const time = new Date(`2000-01-01T${timeString}`);
+  //   return time.toLocaleTimeString();
+  // };
 
   const tableData = {
     columns,
