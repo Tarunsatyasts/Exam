@@ -13,6 +13,7 @@ export const StudentLessons = () => {
   const { id } = useId();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+
   const [isPlaying, setIsPlaying] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

@@ -24,7 +24,7 @@ const Login = () => {
         localStorage.setItem("access_token", result.token);
         localStorage.setItem("Id", result.data.Roles);
         localStorage.setItem("User", result.data.UserID);
-        navigate("/home");
+        navigate(`/home`);
       } catch (error) {
         alert("Error: " + error.message);
       }

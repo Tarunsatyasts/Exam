@@ -224,22 +224,12 @@ export const Students = () => {
         });
 
         const result = await response.json();
-
-        if (response.ok) {
-          alert("Updated Successfully");
-          navigate(`/home/employee`);
-          refreshList();
-          resetForm();
-        } else {
-          // Error
-          alert("Failed: " + result.message);
-          console.log("sjfhsgfhg", values);
-          console.error("Create failed:", result.message);
-        }
+        alert("Updated Successfully");
+        navigate(`/home/employee`);
+        refreshList();
+        resetForm();
       } catch (error) {
-        // Fetch error
-        alert("Error: " + error.message);
-        console.error("Fetch error:", error.message);
+        alert("Please Try again");
       }
     },
   });
