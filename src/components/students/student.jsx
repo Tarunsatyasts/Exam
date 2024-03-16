@@ -64,8 +64,13 @@ export const Students = () => {
   }, [editdata]);
   const columns = [
     {
-      name: "Employee Id",
+      name: "Employee User Id",
       selector: "STUDENT_ID",
+      sortable: true,
+    },
+    {
+      name: "Employee Id",
+      selector: "IDNO",
       sortable: true,
     },
     {
@@ -136,16 +141,16 @@ export const Students = () => {
     const storedToken = localStorage.getItem("access_token");
     try {
       const formData = new URLSearchParams();
-      formData.append("StudentID", row.STUDENT_ID);
-      formData.append("Student_Name", row.NAME);
+     // formData.append("StudentID", row.STUDENT_ID);
+     // formData.append("Student_Name", row.NAME);
 
-      const response = await fetch(`${API_URL}Student/GetStudentMailStatus`, {
+      const response = await fetch(`${API_URL}Student/GetStudentMailStatus/${row.STUDENT_ID}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: `Bearer ${storedToken}`,
         },
-        body: formData.toString(),
+       // body: formData.toString(),
       });
 
       if (response.ok) {

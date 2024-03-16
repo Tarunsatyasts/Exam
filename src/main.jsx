@@ -102,20 +102,6 @@ if (tokenId === "001") {
           ],
         },
         {
-          path: "tasks",
-          element: <IndexLessons />,
-          children: [
-            {
-              index: true,
-              element: <Lessons />,
-            },
-            {
-              path: "edit/:id",
-              element: <Lessons />,
-            },
-          ],
-        },
-        {
           path: "technology",
           element: <IndexSubjects />,
           children: [
@@ -129,6 +115,21 @@ if (tokenId === "001") {
             },
           ],
         },
+        {
+          path: "tasks",
+          element: <IndexLessons />,
+          children: [
+            {
+              index: true,
+              element: <Lessons />,
+            },
+            {
+              path: "edit/:id",
+              element: <Lessons />,
+            },
+          ],
+        },
+       
         {
           path: "questions",
           element: <IndexQuestions />,

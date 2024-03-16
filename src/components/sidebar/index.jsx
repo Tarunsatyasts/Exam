@@ -342,6 +342,32 @@ export const Sidebar = () => {
                       <li>
                         <Link to={"employee"}>Employee</Link>
                       </li>
+                      <li>
+                    <Link
+                      to={"access"}
+                      className="ai-icon"
+                      aria-expanded="false">
+                      <i class="bx bxs-widget"></i>
+                      <span className="nav-text">Employee to Subject link</span>
+                    </Link>
+                  </li>
+                    </ul>
+                  </li>
+
+                  <li
+                    onClick={() => toggleActive("boot")}
+                    className={activeItems["boot"] ? "mm-active" : ""}>
+                    <a className="has-arrow ai-icon" aria-expanded="false">
+                      <i class="bx bxl-tailwind-css"></i>
+                      <span className="nav-text">Technology</span>
+                    </a>
+                    <ul
+                      className={`mm-collapse ${
+                        activeItems["boot"] ? "mm-show" : ""
+                      }`}>
+                      <li>
+                        <Link to={"technology"}>Technology</Link>
+                      </li>
                     </ul>
                   </li>
 
@@ -364,22 +390,7 @@ export const Sidebar = () => {
                       </li>
                     </ul>
                   </li>
-                  <li
-                    onClick={() => toggleActive("boot")}
-                    className={activeItems["boot"] ? "mm-active" : ""}>
-                    <a className="has-arrow ai-icon" aria-expanded="false">
-                      <i class="bx bxl-tailwind-css"></i>
-                      <span className="nav-text">Technology</span>
-                    </a>
-                    <ul
-                      className={`mm-collapse ${
-                        activeItems["boot"] ? "mm-show" : ""
-                      }`}>
-                      <li>
-                        <Link to={"technology"}>Technology</Link>
-                      </li>
-                    </ul>
-                  </li>
+                 
                   <li
                     onClick={() => toggleActive("plug")}
                     className={activeItems["plug"] ? "mm-active" : ""}>
@@ -421,15 +432,7 @@ export const Sidebar = () => {
                       </li>
                     </ul>
                   </li>
-                  <li>
-                    <Link
-                      to={"access"}
-                      className="ai-icon"
-                      aria-expanded="false">
-                      <i class="bx bxs-widget"></i>
-                      <span className="nav-text">Employee to Subject link</span>
-                    </Link>
-                  </li>
+                 
                   <li>
                     <Link
                       to={"reports"}
