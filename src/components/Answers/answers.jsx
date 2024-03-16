@@ -174,17 +174,10 @@ export const Answers = () => {
         });
 
         const result = await response.json();
-
-        if (response.ok) {
-          alert("Created Successfully");
-          answersList();
-        } else {
-          alert("Failed: " + result.message);
-          console.error("Create failed:", result.message);
-        }
+        alert("Created Successfully");
+        answersList();
       } catch (error) {
-        alert("Error: " + error.message);
-        console.error("Fetch error:", error.message);
+        alert("Please try again");
       }
     },
   });
