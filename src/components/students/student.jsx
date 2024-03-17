@@ -56,8 +56,17 @@ export const Students = () => {
         ADDRESS: editdata[0].ADDRESS,
         SECURITY_QUESTION: editdata[0].SECURITY_QUESTION,
         SECURITY_ANSWER: editdata[0].SECURITY_ANSWER,
-        Status: editdata[0].Status,
+        STATUS: editdata[0].STATUS,
+        SUBJECT: editdata[0].SUBJECT,
         IDNO: editdata[0].IDNO,
+        USERID: editdata[0].USERID,
+        LOGIN_STATUS: editdata[0].LOGIN_STATUS,
+        Qualification: editdata[0].Qualification,
+        EXPERIENCE: editdata[0].EXPERIENCE,
+        BankName: editdata[0].BankName,
+        IFSCCode: editdata[0].IFSCCode,
+        BankAccntNo: editdata[0].BankAccntNo,
+        PAnNo: editdata[0].PAnNo,
       });
     }
   }, [editdata]);
@@ -213,8 +222,7 @@ export const Students = () => {
       BankAccntNo: "",
       PAnNo: "",
       IMAGE_PATH: "",
-      Status: "A",
-      Created_By: "Tarun",
+      Created_By: " ",
     },
 
     onSubmit: async (values, { resetForm }) => {
@@ -317,7 +325,7 @@ export const Students = () => {
                           />
                         </div>
 
-                        <div className="col-lg-4 mb-2">
+                        {/* <div className="col-lg-4 mb-2">
                           <label className="inputFieldLabel">Subject</label>
                           <input
                             type="text"
@@ -327,7 +335,7 @@ export const Students = () => {
                             onChange={formik.handleChange}
                             value={formik.values.SUBJECT}
                           />
-                        </div>
+                        </div> */}
                         <div className="col-lg-4 mb-2">
                           <label className="inputFieldLabel">ID Number</label>
                           <input
@@ -448,7 +456,7 @@ export const Students = () => {
                           />
                         </div>
                         <div
-                          className="col-lg-8 mb-2
+                          className="col-lg-4 mb-2
                         ">
                           <label className="inputFieldLabel">
                             Upload Image
@@ -461,6 +469,31 @@ export const Students = () => {
                             onChange={handleImageChange}
                             // value={formik.values.IMAGE_PATH}
                           />
+                        </div>
+                        <div className="col-lg-4 active-status">
+                          <h3>
+                            {formik.values.STATUS === "A"
+                              ? "Active"
+                              : "Inactive"}
+                          </h3>
+                          <div>
+                            <label class="switch">
+                              <input
+                                type="checkbox"
+                                name="Status"
+                                id="statusCheckbox"
+                                onChange={(e) => {
+                                  formik.handleChange(e);
+                                  formik.setFieldValue(
+                                    "STATUS",
+                                    e.target.checked ? "A" : "I"
+                                  );
+                                }}
+                                checked={formik.values.STATUS === "A"}
+                              />
+                              <span class="slider"></span>
+                            </label>
+                          </div>
                         </div>
                         {/* <div className="col-lg-6">
                           <label className="inputFieldLabel">

@@ -290,7 +290,9 @@ export const Lessons = () => {
                       />
                     </div>
                     <div className="col-lg-6 active-status">
-                      <h3>Active Status</h3>
+                      <h3>
+                        {formik.values.Status === "A" ? "Active" : "Inactive"}
+                      </h3>
                       <div>
                         <label class="switch">
                           <input

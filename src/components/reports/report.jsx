@@ -25,15 +25,7 @@ export const Reports = () => {
       selector: "LogInDate",
       sortable: true,
       cell: (row) => (
-        <span>
-          {moment(row.LogInDate).format("DD-MM-YYYY")}
-          {/* {moment(row.LogInDate).format("YYYY-MM-DD") === " " || "null"
-            ? "Empty"
-            : moment(row.LogInDate).format("DD-MM-YYYY")} */}
-          {/* {formatDate(row.LogInDate) === "01-01-1900"
-            ? "Empty"
-            : formatDate(row.LogInDate)} */}
-        </span>
+        <span>{row.LogInDate === null ? "Empty" : row.LogInDate}</span>
       ),
     },
     {
@@ -41,12 +33,7 @@ export const Reports = () => {
       selector: "LogInTime",
       sortable: true,
       cell: (row) => (
-        <span>
-          {moment(row.LogInTime).format("HH:mm:ss")}
-          {/* {formatTime(row.LogInTime) === "12:00:00 AM"
-            ? "Empty"
-            : formatTime(row.LogInTime)} */}
-        </span>
+        <span>{row.LogInTime === null ? "Empty" : row.LogInTime}</span>
       ),
     },
     {
@@ -54,13 +41,7 @@ export const Reports = () => {
       selector: "LogOutDate",
       sortable: true,
       cell: (row) => (
-        <span>
-          {/* {isValidDate ? moment(row.LogOutDate).format("DD-MM-YYYY") : "Empty"} */}
-          {moment(row.LogOutDate).format("YYYY-MM-DD") === "1970-01-01" ||
-          "null"
-            ? "Empty"
-            : moment(row.LogOutDate).format("DD-MM-YYYY")}
-        </span>
+        <span>{row.LogOutDate === null ? "Empty" : row.LogOutDate}</span>
       ),
     },
     {
@@ -68,15 +49,7 @@ export const Reports = () => {
       selector: "LogOutTime",
       sortable: true,
       cell: (row) => (
-        <span>
-          {moment(row.LogOutTime).format("HH:mm:ss") === "1970-01-01" || "null"
-            ? "Empty"
-            : moment(row.LogOutTime).format("HH:mm:ss")}
-          {/* {moment(row.LogOutTime).format("HH:mm:ss")} */}
-          {/* {formatTime(row.LogOutTime) === "12:00:00 AM"
-            ? "Empty"
-            : formatTime(row.LogOutTime)} */}
-        </span>
+        <span>{row.LogOutTime === null ? "Empty" : row.LogOutTime}</span>
       ),
     },
     // {

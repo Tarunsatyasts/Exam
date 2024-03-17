@@ -171,7 +171,7 @@ export const Questions = () => {
       Lession_ID: "",
       Subject_ID: "",
       Subject_Name: "",
-      Status: "",
+      Status: "A",
       CreatedBy: "",
     },
 
@@ -312,7 +312,9 @@ export const Questions = () => {
                       </select>
                     </div>
                     <div className="col-lg-4 active-status">
-                      <h3>Active Status</h3>
+                      <h3>
+                        {formik.values.Status === "A" ? "Active" : "Inactive"}
+                      </h3>
                       <div>
                         <label class="switch">
                           <input

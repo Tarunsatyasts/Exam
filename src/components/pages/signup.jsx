@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
 import { useFormik } from "formik";
 import { API_URL } from "../utils";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       Student_ID: "",
@@ -35,6 +36,7 @@ const Signup = () => {
 
         if (response.ok) {
           alert("Created Successfully");
+          navigate("/");
         } else {
           alert("Failed: " + result.message);
           console.log("sjfhsgfhg", values);

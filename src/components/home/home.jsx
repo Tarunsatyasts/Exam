@@ -29,7 +29,6 @@ export const Home = () => {
       if (response.ok) {
         const data = await response.json();
         setData(data);
-        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
       } else {
         console.error("Error fetching student details:", response.statusText);
       }
@@ -37,9 +36,37 @@ export const Home = () => {
       console.error("Error fetching student details:", error.message);
     }
   };
+  const Boardlist = async () => {
+    try {
+      const storedToken = localStorage.getItem("access_token");
+      const StudentId = localStorage.getItem("User");
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      };
 
+      const response = await fetch(
+        `${API_URL}AdminDashBoard/GetDashBoardDetails`,
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log("-=-=-=-=-=Dashboard details-=-==-=-=-==-=", data);
+      } else {
+        console.error("Error fetching student details:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+    }
+  };
   useEffect(() => {
     refreshList();
+    Boardlist();
   }, []);
 
   const handleSelectSubject = (selectedSubjectID) => {
@@ -176,7 +203,7 @@ export const Home = () => {
                       </a>
                     </div>
 
-                    <div className="ag-courses_item">
+                    {/* <div className="ag-courses_item">
                       <a href="#" className="ag-courses-item_link">
                         <div className="ag-courses-item_bg"></div>
 
@@ -187,9 +214,9 @@ export const Home = () => {
                           <span className="ag-courses-item_date">Tasks</span>
                         </div>
                       </a>
-                    </div>
+                    </div> */}
 
-                    <div className="ag-courses_item">
+                    {/* <div className="ag-courses_item">
                       <a href="#" className="ag-courses-item_link">
                         <div className="ag-courses-item_bg"></div>
 
@@ -202,7 +229,7 @@ export const Home = () => {
                           </span>
                         </div>
                       </a>
-                    </div>
+                    </div> */}
 
                     <div className="ag-courses_item">
                       <a href="#" className="ag-courses-item_link">

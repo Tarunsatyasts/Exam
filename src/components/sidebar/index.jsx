@@ -68,7 +68,7 @@ export const Sidebar = () => {
         Authorization: `Bearer ${storedToken}`,
       };
 
-      const response = await fetch(`${API_URL}Login/LogOut/UserID=${userId}`, {
+      const response = await fetch(`${API_URL}Login/LogOut/${userId}`, {
         headers: headers,
       });
 
