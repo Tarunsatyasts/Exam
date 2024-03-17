@@ -166,7 +166,7 @@ export const StudentLessons = () => {
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Dashboard</Link>
+                <Link to={"/home"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
                 <Link to={"quiz"}>Quiz</Link>
@@ -185,10 +185,7 @@ export const StudentLessons = () => {
               <div className="col-lg-6">
                 <div className="video-wrapper">
                   <video ref={videoRef} autoPlay onEnded={handleVideoEnd}>
-                    <source
-                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
-                      type="video/mp4"
-                    />
+                    <source src={data[0].VIDEO_LINK} type="video/mp4" />
                   </video>
                   {/*<button onClick={handlePlayPause} disabled={isPlaying}>*/}
                   {/*  {isPlaying ? "Pause" : "Play"}*/}

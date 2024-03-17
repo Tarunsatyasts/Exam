@@ -104,6 +104,15 @@ export const Subjects = () => {
 
     fetchData();
   }, [id]);
+  useEffect(() => {
+    if (editdata && editdata.length > 0) {
+      formik.setValues({
+        Subject_ID: editdata[0].Subject_ID,
+        Subject_Name: editdata[0].Subject_Name,
+        Status: editdata[0].Status,
+      });
+    }
+  }, [editdata]);
   const tableData = {
     columns,
     data,
@@ -190,7 +199,7 @@ export const Subjects = () => {
               <div className="col-lg-6 bgModal">
                 <form onSubmit={formik.handleSubmit}>
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <label className="inputFieldLabel">Technology Name</label>
                       <input
                         type="text"
@@ -208,6 +217,27 @@ export const Subjects = () => {
                             : ""
                         }
                       />
+                    </div>
+                    <div className="col-lg-6 active-status">
+                      <h3>Active Status</h3>
+                      <div>
+                        <label class="switch">
+                          <input
+                            type="checkbox"
+                            name="Status"
+                            id="statusCheckbox"
+                            onChange={(e) => {
+                              formik.handleChange(e);
+                              formik.setFieldValue(
+                                "Status",
+                                e.target.checked ? "A" : "I"
+                              );
+                            }}
+                            checked={formik.values.Status === "A"}
+                          />
+                          <span class="slider"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-12">

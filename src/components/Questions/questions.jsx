@@ -223,7 +223,7 @@ export const Questions = () => {
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Dashboard</Link>
+                <Link to={"/home"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
                 <Link to={"/home/questions"}>
@@ -255,7 +255,7 @@ export const Questions = () => {
                         value={formik.values.Question_name}
                       />
                     </div>
-                    <div className="col-lg-6 mt-2 mb-2">
+                    <div className="col-lg-4 mt-2 mb-2">
                       <label className="inputFieldLabel">
                         Select Technology
                       </label>
@@ -284,7 +284,7 @@ export const Questions = () => {
                           ))}
                       </select>
                     </div>
-                    <div className="col-lg-6 mt-2 mb-2">
+                    <div className="col-lg-4 mt-2 mb-2">
                       <label className="inputFieldLabel">Select Task</label>
                       <select
                         className="inputField"
@@ -310,6 +310,27 @@ export const Questions = () => {
                             </option>
                           ))}
                       </select>
+                    </div>
+                    <div className="col-lg-4 active-status">
+                      <h3>Active Status</h3>
+                      <div>
+                        <label class="switch">
+                          <input
+                            type="checkbox"
+                            name="Status"
+                            id="statusCheckbox"
+                            onChange={(e) => {
+                              formik.handleChange(e);
+                              formik.setFieldValue(
+                                "Status",
+                                e.target.checked ? "A" : "I"
+                              );
+                            }}
+                            checked={formik.values.Status === "A"}
+                          />
+                          <span class="slider"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-12">

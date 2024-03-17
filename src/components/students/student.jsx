@@ -58,7 +58,6 @@ export const Students = () => {
         SECURITY_ANSWER: editdata[0].SECURITY_ANSWER,
         Status: editdata[0].Status,
         IDNO: editdata[0].IDNO,
-
       });
     }
   }, [editdata]);
@@ -141,17 +140,20 @@ export const Students = () => {
     const storedToken = localStorage.getItem("access_token");
     try {
       const formData = new URLSearchParams();
-     // formData.append("StudentID", row.STUDENT_ID);
-     // formData.append("Student_Name", row.NAME);
+      // formData.append("StudentID", row.STUDENT_ID);
+      // formData.append("Student_Name", row.NAME);
 
-      const response = await fetch(`${API_URL}Student/GetStudentMailStatus/${row.STUDENT_ID}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${storedToken}`,
-        },
-       // body: formData.toString(),
-      });
+      const response = await fetch(
+        `${API_URL}Student/GetStudentMailStatus/${row.STUDENT_ID}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+          },
+          // body: formData.toString(),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -263,7 +265,7 @@ export const Students = () => {
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Dashboard</Link>
+                <Link to={"/home"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
                 <Link to={"/home/employee"}>

@@ -105,7 +105,7 @@ export const StudentAccess = () => {
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Dashboard</Link>
+                <Link to={"/home"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
                 <Link to={"students"}>Employee Details</Link>

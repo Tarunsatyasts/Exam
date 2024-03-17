@@ -254,9 +254,14 @@ export const Sidebar = () => {
                       />
                       <div className="header-info">
                         <span className="text-black">
-                          <strong>Tech Admin</strong>
+                          <strong>
+                            {Role_Id === "001" ? `Tech Admin` : `Student`}
+                          </strong>
                         </span>
-                        <p className="fs-12 mb-0">Admin</p>
+                        <p className="fs-12 mb-0">
+                          {" "}
+                          {Role_Id === "001" ? `Admin` : `Student`}
+                        </p>
                       </div>
                     </a>
 
@@ -320,7 +325,7 @@ export const Sidebar = () => {
               <div className="deznav-scroll">
                 <ul className="metismenu" id="menu">
                   <li className={activeItems["dashboard"] ? "mm-active" : ""}>
-                    <Link to={""}>
+                    <Link to={"/home"}>
                       <i class="bx bx-server"></i>
                       <span className="nav-text">Dashboard</span>
                     </Link>
@@ -343,14 +348,16 @@ export const Sidebar = () => {
                         <Link to={"employee"}>Employee</Link>
                       </li>
                       <li>
-                    <Link
-                      to={"access"}
-                      className="ai-icon"
-                      aria-expanded="false">
-                      <i class="bx bxs-widget"></i>
-                      <span className="nav-text">Employee to Subject link</span>
-                    </Link>
-                  </li>
+                        <Link
+                          to={"access"}
+                          className="ai-icon"
+                          aria-expanded="false">
+                          <i class="bx bxs-widget"></i>
+                          <span className="nav-text">
+                            Employee to Subject link
+                          </span>
+                        </Link>
+                      </li>
                     </ul>
                   </li>
 
@@ -390,7 +397,7 @@ export const Sidebar = () => {
                       </li>
                     </ul>
                   </li>
-                 
+
                   <li
                     onClick={() => toggleActive("plug")}
                     className={activeItems["plug"] ? "mm-active" : ""}>
@@ -432,7 +439,7 @@ export const Sidebar = () => {
                       </li>
                     </ul>
                   </li>
-                 
+
                   <li>
                     <Link
                       to={"reports"}

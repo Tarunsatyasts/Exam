@@ -32,6 +32,11 @@ import { IndexReports } from "./components/reports/index.jsx";
 import { Reports } from "./components/reports/report.jsx";
 import { IndexResults } from "./components/result/index.jsx";
 import { Results } from "./components/result/result.jsx";
+
+// Update this part based on your server setup
+// Example for Vite development server:
+// server: { fs: { strict: false } }
+
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
 
@@ -41,12 +46,6 @@ const PrivateRoute = ({ children }) => {
       // Redirect to login if token is not present
       navigate("/");
     }
-    // You can also validate the token against your backend here
-
-    // If token is invalid, redirect to login
-    // if (invalidToken) {
-    //   navigate("/");
-    // }
   }, [navigate]);
 
   return <>{children}</>;
@@ -67,15 +66,29 @@ if (tokenId === "001") {
     },
     {
       path: "/home",
-      element: (
-        <PrivateRoute>
-          <Dashboard />
-        </PrivateRoute>
-      ),
+      element: <Dashboard />,
       children: [
         {
           index: true,
-          element: <Home />,
+          element: (
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "employee",
+          element: <IndexStudents />,
+          children: [
+            {
+              index: true,
+              element: <Students />,
+            },
+            {
+              path: "edit/:id",
+              element: <Students />,
+            },
+          ],
         },
         {
           path: "employee",
@@ -129,7 +142,7 @@ if (tokenId === "001") {
             },
           ],
         },
-       
+
         {
           path: "questions",
           element: <IndexQuestions />,
@@ -189,11 +202,7 @@ if (tokenId === "001") {
     },
     {
       path: "/home",
-      element: (
-        <PrivateRoute>
-          <Dashboard />
-        </PrivateRoute>
-      ),
+      element: <Dashboard />,
       children: [
         {
           index: true,

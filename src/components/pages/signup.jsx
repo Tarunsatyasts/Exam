@@ -18,7 +18,7 @@ const Signup = () => {
       Status: "A",
       Login_Status: "Approved",
       Created_By: "",
-      EMPID:"",
+      EMPID: "",
     },
     onSubmit: async (values) => {
       try {
@@ -57,7 +57,7 @@ const Signup = () => {
                   <div className="col-xl-12">
                     <div className="auth-form">
                       <div className="text-center mb-3">
-                        <Link to={"/"}>
+                        <Link to={"/home"}>
                           <img src={Logo} alt="" className="w-40" />
                         </Link>
                       </div>
@@ -65,14 +65,14 @@ const Signup = () => {
                   Sign in your account
                 </h4> */}
                       <form onSubmit={formik.handleSubmit}>
-                      <div className="row">
+                        <div className="row">
                           <div className="col-lg-6">
                             <div className="form-group">
                               <label className="mb-1 text-black">
                                 <strong>Employee ID</strong>
                               </label>
                               <input
-                              placeholder="Employee Id"
+                                placeholder="Employee Id"
                                 type="text"
                                 name="EMPID"
                                 className="form-control loginForm"
@@ -82,7 +82,7 @@ const Signup = () => {
                               />
                             </div>
                           </div>
-                          </div>
+                        </div>
                         <div className="row">
                           <div className="col-lg-6">
                             <div className="form-group">
@@ -90,7 +90,7 @@ const Signup = () => {
                                 <strong>Name</strong>
                               </label>
                               <input
-                              placeholder="Employee Name"
+                                placeholder="Employee Name"
                                 type="text"
                                 name="NAME"
                                 className="form-control loginForm"
@@ -106,7 +106,7 @@ const Signup = () => {
                                 <strong>Mobile</strong>
                               </label>
                               <input
-                              placeholder="Mobile No"
+                                placeholder="Mobile No"
                                 type="tel"
                                 name="MOBILE"
                                 className="form-control loginForm"
@@ -122,7 +122,7 @@ const Signup = () => {
                                 <strong>Email</strong>
                               </label>
                               <input
-                              placeholder="Employee Email"
+                                placeholder="Employee Email"
                                 type="email"
                                 name="MAIL"
                                 className="form-control loginForm"

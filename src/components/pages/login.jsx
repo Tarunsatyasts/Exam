@@ -42,7 +42,7 @@ const Login = () => {
                   <div className="col-xl-12">
                     <div className="auth-form">
                       <div className="text-center mb-3">
-                        <Link to={"/"}>
+                        <Link to={"/home"}>
                           <img src={Logo} alt="" className="w-40" />
                         </Link>
                       </div>
@@ -55,7 +55,7 @@ const Login = () => {
                             <strong>User Id</strong>
                           </label>
                           <input
-                          placeholder="Employee ID"
+                            placeholder="Employee ID"
                             type="text"
                             name="UserId"
                             className="form-control loginForm"
@@ -69,7 +69,7 @@ const Login = () => {
                             <strong>Password</strong>
                           </label>
                           <input
-                          placeholder="Password"
+                            placeholder="Password"
                             type="password"
                             name="Password"
                             className="form-control loginForm"
