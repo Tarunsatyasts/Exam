@@ -109,7 +109,7 @@ export const Lessons = () => {
       Lession_name: "",
       Subject_ID: "",
       Subject_Name: "",
-      Status: "",
+      Status: "A",
       VIDEO_LINK: "",
       CreatedBy: "",
     },
@@ -231,8 +231,10 @@ export const Lessons = () => {
                       <input
                         type="text"
                         name="Lession_name"
+                        required
                         id="Lession_name"
                         className="inputField"
+                        title="This field should not be left blank."
                         onChange={formik.handleChange}
                         value={formik.values.Lession_name}
                         // onChange={OnChange}
@@ -250,6 +252,7 @@ export const Lessons = () => {
                       <select
                         className="inputField"
                         name="Subject_ID"
+                        required
                         onChange={(e) => {
                           formik.handleChange(e);
                           const selectedSubject = data.find(
@@ -279,6 +282,7 @@ export const Lessons = () => {
                         name="VIDEO_LINK"
                         id="VIDEO_LINK"
                         className="inputField"
+                        required
                         onChange={formik.handleChange}
                         value={formik.values.VIDEO_LINK}
                         // onChange={OnChange}

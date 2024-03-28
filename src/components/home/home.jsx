@@ -8,7 +8,7 @@ export const Home = () => {
 
   const Role_Id = localStorage.getItem("Id");
   const [data, setData] = useState();
-
+  const [card, setCard] = useState();
   const refreshList = async () => {
     try {
       const storedToken = localStorage.getItem("access_token");
@@ -52,14 +52,8 @@ export const Home = () => {
           headers: headers,
         }
       );
-
-      if (response.ok) {
-        const data = await response.json();
-
-        console.log("-=-=-=-=-=Dashboard details-=-==-=-=-==-=", data);
-      } else {
-        console.error("Error fetching student details:", response.statusText);
-      }
+      const data = await response.json();
+      setCard(data);
     } catch (error) {
       console.error("Error fetching student details:", error.message);
     }
@@ -190,18 +184,26 @@ export const Home = () => {
 
                 {Role_Id === "001" ? (
                   <>
-                    <div className="ag-courses_item">
-                      <a href="#" className="ag-courses-item_link">
-                        <div className="ag-courses-item_bg"></div>
+                    {card &&
+                      card.map((item, index) => (
+                        <div className="ag-courses_item">
+                          <Link
+                            to={"employee"}
+                            className="ag-courses-item_link">
+                            <div className="ag-courses-item_bg"></div>
 
-                        <div className="ag-courses-item_title">56</div>
+                            <div className="ag-courses-item_title">
+                              {item.COUNT1}
+                            </div>
 
-                        <div className="ag-courses-item_date-box">
-                          Total :&nbsp;
-                          <span className="ag-courses-item_date">Employee</span>
+                            <div className="ag-courses-item_date-box">
+                              <span className="ag-courses-item_date">
+                                {item.CAPTION}
+                              </span>
+                            </div>
+                          </Link>
                         </div>
-                      </a>
-                    </div>
+                      ))}
 
                     {/* <div className="ag-courses_item">
                       <a href="#" className="ag-courses-item_link">
@@ -230,19 +232,6 @@ export const Home = () => {
                         </div>
                       </a>
                     </div> */}
-
-                    <div className="ag-courses_item">
-                      <a href="#" className="ag-courses-item_link">
-                        <div className="ag-courses-item_bg"></div>
-
-                        <div className="ag-courses-item_title">15</div>
-
-                        <div className="ag-courses-item_date-box">
-                          Total :&nbsp;
-                          <span className="ag-courses-item_date">Subjects</span>
-                        </div>
-                      </a>
-                    </div>
                   </>
                 ) : (
                   <></>

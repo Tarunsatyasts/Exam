@@ -1,8 +1,20 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
 import { useFormik } from "formik";
 import { API_URL } from "../utils";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const notify = () =>
+  toast.success("This is a toast notification !", {
+    autoClose: 10000,
+    position: "top-right",
+  });
+const notifyt = () =>
+  toast.error("This is a toast notification !", {
+    autoClose: 2000,
+    position: "top-right",
+  });
 const Login = () => {
   const navigate = useNavigate();
   const formik = useFormik({
@@ -24,9 +36,17 @@ const Login = () => {
         localStorage.setItem("access_token", result.token);
         localStorage.setItem("Id", result.data.Roles);
         localStorage.setItem("User", result.data.UserID);
+        toast.success("User logged In success", {
+          autoClose: 2000,
+          position: "top-right",
+        });
         navigate(`/home`);
+        window.location.reload();
       } catch (error) {
-        alert("Error: " + error.message);
+        toast.error("Please Check User Id and Password", {
+          autoClose: 2000,
+          position: "top-right",
+        });
       }
     },
   });
@@ -49,6 +69,7 @@ const Login = () => {
                       {/* <h4 className="text-center mb-4 text-white">
                   Sign in your account
                 </h4> */}
+
                       <form onSubmit={formik.handleSubmit}>
                         <div className="form-group">
                           <label className="mb-1 text-black">
@@ -111,6 +132,10 @@ const Login = () => {
                           </button>
                         </div>
                       </form>
+
+                      <div>
+                        <ToastContainer />
+                      </div>
                       <div className="new-account mt-3">
                         <p className="text-black">
                           Don't have an account?

@@ -30,7 +30,6 @@ export const Profile = () => {
       if (response.ok) {
         const data = await response.json();
         setData(data[0]);
-        console.log("-=-=-=-=-=-=-==-=-=-==-=", data);
       } else {
         console.error("Error fetching student details:", response.statusText);
       }

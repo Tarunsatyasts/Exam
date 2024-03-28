@@ -178,7 +178,7 @@ export const Subjects = () => {
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Dashboard</Link>
+                <Link to={"/home"}>Dashboard</Link>
               </li>
               <li className="breadcrumb-item active">
                 <Link to={"/home/technology"}>
@@ -207,6 +207,7 @@ export const Subjects = () => {
                         id="Subject_Name"
                         className="inputField"
                         placeholder="technology"
+                        required
                         // onChange={formik.handleChange}
                         onChange={handleSubjectChange}
                         initialValues={formik.values}

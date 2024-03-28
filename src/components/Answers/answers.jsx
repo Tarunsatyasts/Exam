@@ -25,6 +25,7 @@ export const Answers = () => {
           <label className="inputFieldLabel">Option {i + 1}</label>
           <input
             type="text"
+            required
             name={`OPTION_NAME_${i}`}
             id={`OPTION_NAME_${i}`}
             className="inputField"
@@ -258,6 +259,7 @@ export const Answers = () => {
                       <select
                         className="inputField"
                         name="Lession_ID"
+                        required
                         onChange={handleLessonChange}
                         // onChange={(e) => {
                         //   formik.handleChange(e);
@@ -298,6 +300,7 @@ export const Answers = () => {
                       <label className="inputFieldLabel">Select Question</label>
                       <select
                         className="inputField"
+                        required
                         name="Question_ID"
                         onChange={(e) => {
                           formik.handleChange(e);
@@ -328,6 +331,7 @@ export const Answers = () => {
                       </label>
                       <input
                         type="number"
+                        required
                         name="numberOfOptions"
                         id="numberOfOptions"
                         className="inputField"
@@ -341,6 +345,7 @@ export const Answers = () => {
                       </label>
                       <input
                         type="text"
+                        required
                         name="ANSWER_ID"
                         id="ANSWER_ID"
                         className="inputField"

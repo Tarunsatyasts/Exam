@@ -249,6 +249,7 @@ export const Questions = () => {
                       <input
                         type="text"
                         name="Question_name"
+                        required
                         id="Question_name"
                         className="inputField"
                         onChange={formik.handleChange}
@@ -262,6 +263,7 @@ export const Questions = () => {
                       <select
                         className="inputField"
                         name="Subject_ID"
+                        required
                         onChange={(e) => {
                           formik.handleChange(e);
                           const selectedSubject = subjectdata.find(
@@ -288,6 +290,7 @@ export const Questions = () => {
                       <label className="inputFieldLabel">Select Task</label>
                       <select
                         className="inputField"
+                        required
                         name="Lession_ID"
                         onChange={(e) => {
                           formik.handleChange(e);

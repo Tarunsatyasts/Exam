@@ -155,6 +155,7 @@ export const Reports = () => {
                       <input
                         type="date"
                         name="date"
+                        required
                         id="date"
                         className="inputField"
                         placeholder="date"

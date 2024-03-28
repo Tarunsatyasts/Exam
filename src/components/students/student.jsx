@@ -296,6 +296,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="NAME"
+                            required
                             id="NAME"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -306,6 +307,7 @@ export const Students = () => {
                           <label className="inputFieldLabel">Email</label>
                           <input
                             type="email"
+                            required
                             name="MAIL"
                             id="MAIL"
                             className="inputField"
@@ -317,6 +319,7 @@ export const Students = () => {
                           <label className="inputFieldLabel">Number</label>
                           <input
                             type="number"
+                            required
                             name="MOBILE"
                             id="MOBILE"
                             className="inputField"
@@ -340,6 +343,7 @@ export const Students = () => {
                           <label className="inputFieldLabel">ID Number</label>
                           <input
                             type="text"
+                            required
                             name="IDNO"
                             id="IDNO"
                             className="inputField"
@@ -354,6 +358,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="Qualification"
+                            required
                             id="Qualification"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -367,6 +372,7 @@ export const Students = () => {
                           <input
                             type="date"
                             name="Dateofbirth"
+                            required
                             id="Dateofbirth"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -382,6 +388,7 @@ export const Students = () => {
                           <input
                             type="date"
                             name="DateOfJoining"
+                            required
                             id="DateOfJoining"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -395,6 +402,7 @@ export const Students = () => {
                           <input
                             type="number"
                             name="EXPERIENCE"
+                            required
                             id="EXPERIENCE"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -408,6 +416,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="BankName"
+                            required
                             id="BankName"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -421,6 +430,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="IFSCCode"
+                            required
                             id="IFSCCode"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -436,6 +446,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="BankAccntNo"
+                            required
                             id="BankAccntNo"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -449,6 +460,7 @@ export const Students = () => {
                           <input
                             type="text"
                             name="PAnNo"
+                            required
                             id="PAnNo"
                             className="inputField"
                             onChange={formik.handleChange}
@@ -525,6 +537,7 @@ export const Students = () => {
                           <label className="inputFieldLabel">Address</label>
                           <textarea
                             name="ADDRESS"
+                            required
                             id="ADDRESS"
                             className="textArea"
                             onChange={formik.handleChange}

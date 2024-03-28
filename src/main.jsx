@@ -32,6 +32,8 @@ import { IndexReports } from "./components/reports/index.jsx";
 import { Reports } from "./components/reports/report.jsx";
 import { IndexResults } from "./components/result/index.jsx";
 import { Results } from "./components/result/result.jsx";
+import { IndexPassword } from "./components/password/index.jsx";
+import { ChangePassword } from "./components/password/password.jsx";
 
 // Update this part based on your server setup
 // Example for Vite development server:
@@ -184,6 +186,16 @@ if (tokenId === "001") {
             {
               index: true,
               element: <Profile />,
+            },
+          ],
+        },
+        {
+          path: "password",
+          element: <IndexPassword />,
+          children: [
+            {
+              index: true,
+              element: <ChangePassword />,
             },
           ],
         },
