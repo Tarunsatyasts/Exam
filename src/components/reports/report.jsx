@@ -25,7 +25,7 @@ export const Reports = () => {
       selector: "LogInDate",
       sortable: true,
       cell: (row) => (
-        <span>{row.LogInDate === null ? "Empty" : row.LogInDate}</span>
+        <span>{row.LogInDate === null ? " " : row.LogInDate}</span>
       ),
     },
     {
@@ -33,7 +33,7 @@ export const Reports = () => {
       selector: "LogInTime",
       sortable: true,
       cell: (row) => (
-        <span>{row.LogInTime === null ? "Empty" : row.LogInTime}</span>
+        <span>{row.LogInTime === null ? " " : row.LogInTime}</span>
       ),
     },
     {
@@ -41,7 +41,7 @@ export const Reports = () => {
       selector: "LogOutDate",
       sortable: true,
       cell: (row) => (
-        <span>{row.LogOutDate === null ? "Empty" : row.LogOutDate}</span>
+        <span>{row.LogOutDate === null ? " " : row.LogOutDate}</span>
       ),
     },
     {
@@ -49,7 +49,7 @@ export const Reports = () => {
       selector: "LogOutTime",
       sortable: true,
       cell: (row) => (
-        <span>{row.LogOutTime === null ? "Empty" : row.LogOutTime}</span>
+        <span>{row.LogOutTime === null ? " " : row.LogOutTime}</span>
       ),
     },
     // {

@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/Logo.png";
 import { useFormik } from "formik";
 import { API_URL } from "../utils";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
   const navigate = useNavigate();
   const formik = useFormik({
@@ -43,8 +44,12 @@ const Signup = () => {
           console.error("Create failed:", result.message);
         }
       } catch (error) {
-        alert("Error: " + error.message);
-        console.error("Fetch error:", error.message);
+        toast.error("Student Name Already Existed for this EMPID", {
+          autoClose: 2000,
+          position: "top-right",
+        });
+        // alert("Error: " + error.message);
+        // console.error("Fetch error:", error.message);
       }
     },
   });
@@ -79,6 +84,7 @@ const Signup = () => {
                                 name="EMPID"
                                 className="form-control loginForm"
                                 defaultValue=""
+                                required
                                 onChange={formik.handleChange}
                                 value={formik.values.EMPID}
                               />
@@ -97,6 +103,7 @@ const Signup = () => {
                                 name="NAME"
                                 className="form-control loginForm"
                                 defaultValue=""
+                                required
                                 onChange={formik.handleChange}
                                 value={formik.values.NAME}
                               />
@@ -109,10 +116,11 @@ const Signup = () => {
                               </label>
                               <input
                                 placeholder="Mobile No"
-                                type="tel"
+                                type="number"
                                 name="MOBILE"
                                 className="form-control loginForm"
                                 defaultValue=""
+                                required
                                 onChange={formik.handleChange}
                                 value={formik.values.MOBILE}
                               />
@@ -129,6 +137,7 @@ const Signup = () => {
                                 name="MAIL"
                                 className="form-control loginForm"
                                 defaultValue=""
+                                required
                                 onChange={formik.handleChange}
                                 value={formik.values.MAIL}
                               />
@@ -143,9 +152,10 @@ const Signup = () => {
                             name="ADDRESS"
                             onChange={formik.handleChange}
                             value={formik.values.ADDRESS}
+                            required
                             className="form-control loginForm"></textarea>
                         </div>
-
+                        <ToastContainer />
                         <div className="text-center">
                           <button
                             type="submit"

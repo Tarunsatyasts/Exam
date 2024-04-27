@@ -188,7 +188,11 @@ export const Home = () => {
                       card.map((item, index) => (
                         <div className="ag-courses_item">
                           <Link
-                            to={"employee"}
+                            to={
+                              item.CAPTION === "TOTAL SUBJECTS"
+                                ? "access"
+                                : "employee"
+                            }
                             className="ag-courses-item_link">
                             <div className="ag-courses-item_bg"></div>
 
